@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-24 · **Current phase:** P0 — Foundation · **Active branch:** `gf_apr24_v1`
+> **Last updated:** 2026-04-24 · **Current phase:** P0 complete → P1 next · **Active branch:** `gf_apr24_v1`
 
 ---
 
@@ -116,20 +116,34 @@ Deferred decisions (punt to when the need is real):
 
 ---
 
-## 6 · P0 checklist *(current)*
+## 6 · P0 checklist *(complete)*
 
 - [x] Git remote + auth confirmed (`k13-projects/GlobalFork`)
 - [x] Branch `gf_apr24_v1` created
-- [x] PLAN.md committed (this file)
-- [ ] `.gitignore` for Node/Next
-- [ ] Next.js 15 scaffold (TS, App Router, Tailwind, ESLint, src dir)
-- [ ] Tailwind v4 config with brand palette tokens
-- [ ] Font loading: Google Font fallbacks (Archivo Narrow + Inter + Sacramento) via `next/font/google`
-- [ ] Lenis smooth scroll wired in root layout
-- [ ] Root layout with split-nav shell + circular badge logo placeholder
-- [ ] Single hero section stub so there's something to see
-- [ ] Local dev verified (`pnpm dev`)
-- [ ] Pushed to remote, Vercel preview link captured
+- [x] PLAN.md committed (commit 1)
+- [x] `.gitignore` for Node/Next
+- [x] Next.js **16** + React 19 + TS scaffold (App Router, Tailwind v4, ESLint, src dir, Turbopack)
+- [x] Tailwind v4 brand palette tokens via CSS-first `@theme inline` block
+- [x] Font loading: Archivo Narrow (display) + Inter (body) + Sacramento (script) via `next/font/google`
+- [x] Lenis smooth scroll component, mounted in root layout, respects `prefers-reduced-motion`
+- [x] Split-nav shell + circular badge logo SVG placeholder
+- [x] Hero stub + tagline strip + P0 status panel rendered
+- [x] `pnpm dev` boots clean, `/` returns HTTP 200, key markup present
+- [ ] Vercel preview link (deferred to first push — Kazimiro to connect repo to Vercel)
+
+## 6a · P1 checklist *(next)*
+
+- [ ] Replace LogoBadge SVG placeholder with the official badge from `ASSETS/LOGOS/GLOBAL FORK BADGE SDCA.png` (export to SVG)
+- [ ] Build four element icon SVG components (Sun · Community · Earth · Water) from `ASSETS/ELEMENTS/`
+- [ ] Build pattern background components from `ASSETS/PATTERNS/`
+- [ ] Confirm hex codes from IDENTITY.pdf and replace approximations in `globals.css`
+- [ ] Build all 8 home sections statically with real copy: Hero · Tagline · About · Vendors · Events · Bookings · Visit · Follow · Footer
+- [ ] Diagonal section transitions component
+- [ ] Pill CTA component
+- [ ] Script accent text utility
+- [ ] Vendor card grid with the 6 real vendors (placeholder photos until Lorena delivers)
+- [ ] Event card primitive with stacked-date layout
+- [ ] Footer with Connect block + lockup wordmark
 
 ---
 
@@ -141,6 +155,9 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-24 | Start with Google Font fallbacks, not licensed Pitch | Unblock P0 — swap in Pitch when Kazimiro confirms licensing |
 | 2026-04-24 | Desktop-first layout | Lorena's mockups are desktop; mobile adapts in P2 |
 | 2026-04-24 | Defer WebGL / Three.js to P3 | Ship static + motion layer first; WebGL is polish not foundation |
+| 2026-04-24 | Next.js 16 (not 15) | Latest stable — ships React 19 + Turbopack default + improved RSC streaming |
+| 2026-04-24 | Scaffolded into temp dir then rsync'd to root | npm naming rules reject capital-letter folder name "GlobalFork"; preserved existing .git + PLAN.md |
+| 2026-04-24 | Lenis as React component, not provider with context | No consumers need scroll state in P0; keep API surface tiny |
 
 ---
 
