@@ -45,9 +45,10 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} ${script.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[var(--color-sand)] text-[var(--color-iron)]">
-        <SmoothScroll />
-        <SiteNav />
-        <main>{children}</main>
+        <SmoothScroll>
+          <SiteNav />
+          <main>{children}</main>
+        </SmoothScroll>
       </body>
     </html>
   );

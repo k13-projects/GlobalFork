@@ -1,5 +1,7 @@
 import ElementIcon from "../ElementIcon";
 import PatternOverlay from "../PatternOverlay";
+import Reveal from "../motion/Reveal";
+import { StaggerGroup, StaggerItem } from "../motion/Stagger";
 
 type Event = {
   month: string;
@@ -23,17 +25,26 @@ export default function Events() {
       <PatternOverlay name="sun-line" size={680} opacity={0.06} />
 
       <div className="relative mx-auto max-w-6xl">
-        <header className="flex flex-col items-center text-center">
-          <ElementIcon name="sun" size={64} />
-          <h2 className="mt-4 font-display text-4xl uppercase tracking-[0.08em] md:text-5xl">
-            Upcoming Events
-          </h2>
-        </header>
+        <Reveal as="header" amount={0.5}>
+          <div className="flex flex-col items-center text-center">
+            <ElementIcon name="sun" size={64} />
+            <h2 className="mt-4 font-display text-4xl uppercase tracking-[0.08em] md:text-5xl">
+              Upcoming Events
+            </h2>
+          </div>
+        </Reveal>
 
-        <ul className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <StaggerGroup
+          as="ul"
+          stagger={0.12}
+          delayChildren={0.1}
+          amount={0.3}
+          className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
+        >
           {EVENTS.map((e, i) => (
-            <li
+            <StaggerItem
               key={i}
+              as="li"
               className="group relative flex h-44 cursor-pointer items-stretch overflow-hidden rounded-[2rem] bg-[var(--color-iron)] text-[var(--color-sand)] shadow-sm transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="flex w-32 flex-col items-center justify-center border-r border-[var(--color-sand)]/15 bg-[var(--color-iron-soft)] px-3">
@@ -49,9 +60,9 @@ export default function Events() {
                   {e.title}
                 </p>
               </div>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </StaggerGroup>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-24 · **Current phase:** P1 complete → P2 next · **Active branch:** `gf_apr24_v1`
+> **Last updated:** 2026-04-24 · **Current phase:** P2 complete → P3 next · **Active branch:** `gf_apr24_v1`
 
 ---
 
@@ -149,18 +149,39 @@ Deferred decisions (punt to when the need is real):
 - [ ] *Deferred to P2*: Confirm exact hex codes from IDENTITY.pdf (current values are sampled approximations and look correct against mockup)
 - [ ] *Deferred to P2*: True full-bleed hero photo (placeholder gradient until Lorena delivers)
 
-## 6b · P2 checklist *(next)*
+## 6b · P2 checklist *(complete)*
 
-- [ ] Auto-triggered scroll reveals via IntersectionObserver (fade + slide-up cadence)
-- [ ] Element icons enter on intersection with stagger
-- [ ] Headline split-text reveal on Tagline
-- [ ] Vendor card mask-reveal as user scrolls past grid
-- [ ] Lenis polish: snap thresholds, scrollTo handler for nav anchors
-- [ ] Element-orbit moment between Tagline and About (signature scroll moment)
-- [ ] Script accent draw-on-enter (SVG path or mask reveal)
-- [ ] Reduced-motion fallback verified for every reveal
-- [ ] Mobile responsive pass (currently desktop-first; mockup has no mobile spec yet)
-- [ ] Confirm hex codes from IDENTITY.pdf and lock palette
+- [x] `Reveal` primitive — Motion/IntersectionObserver, 5 directions, motion-pref aware
+- [x] `StaggerGroup` + `StaggerItem` — parent cascades stagger to children
+- [x] `SplitHeadline` — word-by-word reveal with mask clip, used on Tagline
+- [x] `SunRotator` — `useScroll` + `useTransform` rotating the Visit sun decoration on scroll progress
+- [x] `NavCondense` — bg blur + opacity intensifies as user scrolls past hero
+- [x] `SmoothScroll` lifted to provider, exposes `useLenis()` + handles in-page anchor clicks (any `<a href="#…">` smooth-scrolls via Lenis)
+- [x] Reduced-motion: every motion primitive checks `useReducedMotion()` AND `globals.css` clamps animation durations as a global belt-and-suspenders
+- [x] Motion applied to all 9 sections:
+      Tagline (split headline + icon stagger) ·
+      About (cascade: heading → body → script → CTA) ·
+      Vendors (header reveal + 6-card stagger + script reveal) ·
+      Events (header reveal + 3-card stagger) ·
+      Bookings (cascade: heading → body → CTA) ·
+      Visit (header + address + hours + CTA cascade · script slides in from right · sun rotates with scroll) ·
+      Follow (storefront reveal + 6-tile stagger) ·
+      Footer (two-column reveal from opposite sides)
+- [x] Production build green; HTML rendered with motion initial styles (opacity:0, translateY/X) confirmed
+- [ ] *Deferred to P3*: Element-orbit signature moment between Tagline and About — needs more scope/design conversation
+- [ ] *Deferred to P3*: Script accent SVG draw-on-enter (currently fades; would need SVG paths instead of PNGs)
+- [ ] *Deferred to P3*: Mobile responsive pass — mockup is desktop only; mobile design needs Lorena input
+
+## 6c · P3 checklist *(next — the "wow" layer)*
+
+- [ ] Hero gradient mesh / WebGL — evaluate scope vs ship date
+- [ ] Element-orbit moment: 4 elements orbit a central glyph as Tagline scrolls past
+- [ ] Vendor section: horizontal "piazza walk" scroll with pinning
+- [ ] Plaza panorama: scrub-locked image sequence (24-frame dusk timelapse) — needs photography from Lorena
+- [ ] Custom Mapbox style for Visit using palette (sand/grove/clay)
+- [ ] Convert script accents to SVG and add path draw-on
+- [ ] Mobile responsive pass with full QA
+- [ ] Hex code lock from IDENTITY.pdf
 - [ ] Hook Vercel preview to repo so commits auto-deploy
 
 ---
@@ -180,6 +201,10 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-24 | Element icons use `[filter:invert(1)]` for cream-on-dark | Source PNGs are dark-on-transparent; one-line CSS over re-exporting from Illustrator |
 | 2026-04-24 | Vendor cards: solid-tone placeholders with hover reveal | Lorena will deliver real photography; structure + interaction are locked, swap is one-line per vendor |
 | 2026-04-24 | Diagonal section cuts via clip-path polygon | Cleaner than SVG masks; honors prefers-reduced-motion automatically (no animation involved) |
+| 2026-04-24 | Motion library = `motion` (formerly Framer Motion) v12 | Already installed; v12 has the new lighter `motion/react` import; first-class IntersectionObserver via `whileInView` |
+| 2026-04-24 | Reveal/Stagger as standalone client components | Server components stay server; client islands stay small. Pages still prerender as static. |
+| 2026-04-24 | Lenis lifted to provider with anchor-click interception | Nav anchors and any future `<a href="#">` get smooth scroll for free without per-link wiring |
+| 2026-04-24 | Belt-and-suspenders reduced-motion: useReducedMotion + global CSS clamp | Defense in depth — if a third-party animation slips in, the CSS rule still neutralizes it |
 
 ---
 

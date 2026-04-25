@@ -3,13 +3,14 @@ import ElementIcon from "../ElementIcon";
 import PatternOverlay from "../PatternOverlay";
 import ScriptAccent from "../ScriptAccent";
 import DiagonalCut from "../DiagonalCut";
+import Reveal from "../motion/Reveal";
+import { StaggerGroup, StaggerItem } from "../motion/Stagger";
 
 type Vendor = {
   slug: string;
   name: string;
   blurb: string;
   handle: string;
-  /** Placeholder image hue from the palette — replaced with real photography later. */
   tone: string;
 };
 
@@ -74,20 +75,27 @@ export default function Vendors() {
       <PatternOverlay name="earth-white" size={520} opacity={0.1} />
 
       <div className="relative mx-auto max-w-7xl">
-        <header className="flex flex-col items-center text-center">
-          <ElementIcon name="community" variant="light" size={62} />
-          <h2 className="mt-5 font-display text-4xl uppercase tracking-[0.08em] md:text-5xl">
-            Our Vendors
-          </h2>
-        </header>
+        <Reveal as="header" amount={0.5}>
+          <div className="flex flex-col items-center text-center">
+            <ElementIcon name="community" variant="light" size={62} />
+            <h2 className="mt-5 font-display text-4xl uppercase tracking-[0.08em] md:text-5xl">
+              Our Vendors
+            </h2>
+          </div>
+        </Reveal>
 
-        <ul className="mt-14 grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGroup
+          as="ul"
+          stagger={0.09}
+          amount={0.15}
+          className="mt-14 grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {VENDORS.map((v) => (
-            <li
+            <StaggerItem
               key={v.slug}
+              as="li"
               className="group relative aspect-[4/3] overflow-hidden bg-[var(--color-iron-soft)]"
             >
-              {/* Placeholder photo block — solid tone + subtle pattern, swapped for real photography later. */}
               <div
                 className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                 style={{ background: v.tone }}
@@ -112,18 +120,20 @@ export default function Vendors() {
               <div className="absolute bottom-3 left-4 font-display text-sm uppercase tracking-wider text-[var(--color-sand)] transition-opacity group-hover:opacity-0">
                 {v.name}
               </div>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </StaggerGroup>
 
-        <div className="mt-12 flex justify-start pl-4">
-          <ScriptAccent
-            name="where-taste-travels"
-            width={360}
-            variant="cream"
-            className="opacity-90"
-          />
-        </div>
+        <Reveal direction="right" delay={0.1}>
+          <div className="mt-12 flex justify-start pl-4">
+            <ScriptAccent
+              name="where-taste-travels"
+              width={360}
+              variant="cream"
+              className="opacity-90"
+            />
+          </div>
+        </Reveal>
       </div>
 
       <DiagonalCut to="var(--color-sand)" height={80} />
