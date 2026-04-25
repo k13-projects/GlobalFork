@@ -1,69 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import ElementIcon from "../ElementIcon";
 import PatternOverlay from "../PatternOverlay";
 import ScriptAccent from "../ScriptAccent";
 import DiagonalCut from "../DiagonalCut";
 import Reveal from "../motion/Reveal";
 import { StaggerGroup, StaggerItem } from "../motion/Stagger";
-
-type Vendor = {
-  slug: string;
-  name: string;
-  blurb: string;
-  handle: string;
-  tone: string;
-};
-
-const VENDORS: Vendor[] = [
-  {
-    slug: "moto-pizza",
-    name: "MOTO Pizza",
-    blurb:
-      "First out-of-state outpost for Seattle's acclaimed “odd pizza” — Detroit, NY, and Roman styles meet Filipino influences.",
-    handle: "@motopizzashop",
-    tone: "var(--color-clay-deep)",
-  },
-  {
-    slug: "cosmos-burger",
-    name: "Cosmos Burger",
-    blurb:
-      "Burgers built on bold flavor combinations. Home of the signature Spicy Jam Burger and the iconic Monkey Fries.",
-    handle: "@burger.cosmos",
-    tone: "var(--color-spicy)",
-  },
-  {
-    slug: "la-vida",
-    name: "La Vida",
-    blurb:
-      "San Diego’s healthy food brand where health meets happiness all day — smoothies, salads, wraps, bowls.",
-    handle: "@lavida.sandiego",
-    tone: "var(--color-grove)",
-  },
-  {
-    slug: "lobster-lab",
-    name: "Lobster Lab",
-    blurb:
-      "Carlsbad seafood concept serving the famed Lobster Grilled Cheese. Yelp’s #1 Lobster Roll in San Diego, 2024.",
-    handle: "@lobsterlab.us",
-    tone: "var(--color-tide)",
-  },
-  {
-    slug: "handels-ice-cream",
-    name: "Handel’s Ice Cream",
-    blurb:
-      "Handcrafted ice cream rooted in tradition — fresh, high-quality flavors made daily for joyful moments.",
-    handle: "@handlesicecream",
-    tone: "var(--color-misty)",
-  },
-  {
-    slug: "thai-style-kitchen",
-    name: "Thai Style Kitchen",
-    blurb:
-      "Authentic Thai flavors in a vibrant kitchen — fresh ingredients, bold recipes, warm everyday dining.",
-    handle: "@t.s.k_thaistylekitchen",
-    tone: "var(--color-harvey)",
-  },
-];
+import { VENDORS } from "@/data/vendors";
 
 export default function Vendors() {
   return (
@@ -94,32 +37,37 @@ export default function Vendors() {
             <StaggerItem
               key={v.slug}
               as="li"
-              className="group relative aspect-[4/3] overflow-hidden bg-[var(--color-iron-soft)]"
+              className="relative aspect-[4/3] overflow-hidden bg-[var(--color-iron-soft)]"
             >
-              <div
-                className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                style={{ background: v.tone }}
-              />
-              <Image
-                aria-hidden
-                src="/brand/patterns/earth-white.png"
-                alt=""
-                fill
-                sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-                className="object-cover opacity-15 mix-blend-overlay"
-              />
-              <div className="absolute inset-0 flex flex-col justify-end gap-1 bg-gradient-to-t from-[var(--color-iron)]/85 via-[var(--color-iron)]/30 to-transparent p-6 text-[var(--color-sand)] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <h3 className="font-display text-xl uppercase tracking-wide">
+              <Link
+                href={`/vendors/${v.slug}`}
+                className="group absolute inset-0 block"
+              >
+                <div
+                  className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+                  style={{ background: v.tone }}
+                />
+                <Image
+                  aria-hidden
+                  src="/brand/patterns/earth-white.png"
+                  alt=""
+                  fill
+                  sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                  className="object-cover opacity-15 mix-blend-overlay"
+                />
+                <div className="absolute inset-0 flex flex-col justify-end gap-1 bg-gradient-to-t from-[var(--color-iron)]/85 via-[var(--color-iron)]/30 to-transparent p-6 text-[var(--color-sand)] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <h3 className="font-display text-xl uppercase tracking-wide">
+                    {v.name}
+                  </h3>
+                  <p className="text-sm leading-snug opacity-90">{v.blurb}</p>
+                  <span className="mt-1 font-script text-lg text-[var(--color-harvey)]">
+                    {v.handle}
+                  </span>
+                </div>
+                <div className="absolute bottom-3 left-4 font-display text-sm uppercase tracking-wider text-[var(--color-sand)] transition-opacity group-hover:opacity-0">
                   {v.name}
-                </h3>
-                <p className="text-sm leading-snug opacity-90">{v.blurb}</p>
-                <span className="mt-1 font-script text-lg text-[var(--color-harvey)]">
-                  {v.handle}
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-4 font-display text-sm uppercase tracking-wider text-[var(--color-sand)] transition-opacity group-hover:opacity-0">
-                {v.name}
-              </div>
+                </div>
+              </Link>
             </StaggerItem>
           ))}
         </StaggerGroup>

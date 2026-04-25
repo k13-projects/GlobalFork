@@ -5,12 +5,12 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 
 const ITEMS = [
-  { label: "About Us", href: "#about" },
-  { label: "Our Vendors", href: "#vendors" },
-  { label: "Events", href: "#events" },
-  { label: "Bookings", href: "#bookings" },
-  { label: "Visit Us", href: "#visit" },
-  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Our Vendors", href: "/vendors" },
+  { label: "Events", href: "/#events" },
+  { label: "Bookings", href: "/bookings" },
+  { label: "Visit Us", href: "/#visit" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function MobileMenu() {

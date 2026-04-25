@@ -4,15 +4,15 @@ import NavCondense from "./motion/NavCondense";
 import MobileMenu from "./MobileMenu";
 
 const LEFT = [
-  { label: "About Us", href: "#about" },
-  { label: "Our Vendors", href: "#vendors" },
-  { label: "Events", href: "#events" },
+  { label: "About Us", href: "/about" },
+  { label: "Our Vendors", href: "/vendors" },
+  { label: "Events", href: "/#events" },
 ];
 
 const RIGHT = [
-  { label: "Bookings", href: "#bookings" },
-  { label: "Visit Us", href: "#visit" },
-  { label: "Contact", href: "#contact" },
+  { label: "Bookings", href: "/bookings" },
+  { label: "Visit Us", href: "/#visit" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function SiteNav() {

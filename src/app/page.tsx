@@ -8,7 +8,6 @@ import EventsRender from "@/components/sections/EventsRender";
 import Bookings from "@/components/sections/Bookings";
 import Visit from "@/components/sections/Visit";
 import Follow from "@/components/sections/Follow";
-import SiteFooter from "@/components/sections/SiteFooter";
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       <Bookings />
       <Visit />
       <Follow />
-      <SiteFooter />
     </>
   );
 }

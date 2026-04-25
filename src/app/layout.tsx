@@ -3,6 +3,7 @@ import { Archivo_Narrow, Inter, Sacramento } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/sections/SiteFooter";
 
 const display = Archivo_Narrow({
   variable: "--font-display",
@@ -48,6 +49,7 @@ export default function RootLayout({
         <SmoothScroll>
           <SiteNav />
           <main>{children}</main>
+          <SiteFooter />
         </SmoothScroll>
       </body>
     </html>

@@ -28,7 +28,7 @@ export default function Bookings() {
         </Reveal>
         <Reveal delay={0.3} amount={0.4}>
           <div className="mt-10">
-            <PillButton href="#contact" variant="cream">
+            <PillButton href="/bookings" variant="cream">
               Get in Touch
             </PillButton>
           </div>

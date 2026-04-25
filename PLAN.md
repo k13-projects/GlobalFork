@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-24 · **Current phase:** P3 partial → P4 next · **Active branch:** `gf_apr24_v2`
+> **Last updated:** 2026-04-25 · **Current phase:** P4 partial → P5 next · **Active branch:** `gf_apr25_v1`
 
 ---
 
@@ -189,13 +189,41 @@ Deferred decisions (punt to when the need is real):
 - [ ] Hex code lock from IDENTITY.pdf — current sampled values look right, can refine when palette gets a final review
 - [ ] Hook Vercel preview to repo — Kazimiro action: connect `k13-projects/GlobalFork` to a Vercel project
 
-## 6d · P4 checklist *(next — content + content layer)*
+## 6d · P4 checklist *(partial — pages shipped, CMS deferred)*
 
-- [ ] Inner pages: `/about`, `/vendors`, `/vendors/[slug]`, `/events`, `/events/[slug]`, `/visit`, `/contact`
-- [ ] Bookings form (15+ guests) — multi-step, lands in inbox until reservation system is decided
-- [ ] CMS choice + wire-up (Sanity vs Payload) — depends on who owns Events/Vendors content
-- [ ] Real photography swap (vendors + hero render) when Lorena delivers
-- [ ] Pull P3 deferred items as resources unblock
+**Shipped this phase:**
+- [x] Vendor data extracted to `src/data/vendors.ts` — single source for home + inner pages
+- [x] Footer lifted into root layout so every page gets it for free
+- [x] `PageHeader` primitive — Iron Black band with elements row, eyebrow, title, subtitle
+- [x] `/about` — extended copy (4,685 sqft venue / 10,000 sqft plaza), space facts panel, "what you'll find" grid, dual CTAs
+- [x] `/vendors` — full grid with cuisine + origin metadata, links to detail pages
+- [x] `/vendors/[slug]` — six prerendered detail pages with hero in vendor's tone color, longform blurb, signature/cuisine/origin/IG aside, "more vendors" footer
+- [x] `/contact` — three-tab form (General · Vendor Opportunities · Careers), `motion`-driven tab indicator, mailto submit with structured subject + body
+- [x] `/bookings` — three-step form (Event → Date & size → About you) with progress indicator, occasion picker, motion transitions between steps, mailto submit
+- [x] Form input style added to `globals.css` (focus ring uses Clay)
+- [x] Nav routes converted: anchors → real routes (`/about`, `/vendors`, `/bookings`, `/contact`); `/#events` and `/#visit` for home-page sections that don't have dedicated pages yet
+- [x] Home About "Learn More" → `/about` · Home Bookings "Get in Touch" → `/bookings`
+- [x] Production build prerenders all 14 routes statically (incl. 6 SSG vendor pages)
+- [x] Smoke test: every route returns HTTP 200
+
+**Deferred (need external decisions or content):**
+- [ ] `/events` index + `/events/[slug]` — events data is mock; revisit when real calendar exists
+- [ ] `/visit` extended page — homepage Visit section sufficient until parking/directions content is finalized
+- [ ] CMS choice (Sanity vs Payload) — blocked on who owns Events/Vendors content
+- [ ] Real photography swap (vendors + hero render) — blocked on Lorena delivery
+- [ ] Hosted form handler — current mailto flow is functional but not analytics-friendly
+- [ ] P3 deferred items still pending: piazza-walk, plaza panorama, custom Mapbox, script SVG draw-on, hex lock, Vercel preview hookup
+
+## 6e · P5 checklist *(next — polish + ship)*
+
+- [ ] Vercel preview hookup (Kazimiro action: connect repo)
+- [ ] Real photography swap (when Lorena delivers)
+- [ ] Perf pass: LCP < 2s, motion-safe 60fps on mid-tier hardware
+- [ ] A11y audit: keyboard nav, ARIA labels, color contrast on all pages
+- [ ] SEO/OG: per-route metadata + auto-rendered OG images via `@vercel/og`
+- [ ] Sitemap + robots
+- [ ] Eren review pass
+- [ ] Production deploy
 
 ---
 
@@ -223,6 +251,11 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-24 | Rejected building a Mapbox/SVG map placeholder | Not in Lorena's mockup. "Go Now" button + address is enough; map decision belongs to a real conversation in P4. |
 | 2026-04-24 | Mobile nav as hamburger + full-screen drawer (not slide-in side drawer) | Six items are too many for an icon row; full-screen lets the typography breathe and matches the brand's confident voice |
 | 2026-04-24 | Hero motion via animated CSS gradients (no WebGL) | Achieves "living" feel without the WebGL bundle weight; WebGL stays available for P3 follow-up if Eren wants more |
+| 2026-04-25 | Nav links route to real pages, not hash anchors | Marketing convention; direct linking; SEO. Home anchors (`/#events`, `/#visit`) survive for sections without dedicated pages yet |
+| 2026-04-25 | Vendor data in `src/data/vendors.ts` (not a CMS) | One file, six entries — premature to add a CMS. Drop-in replacement for Sanity/Payload when content owner is decided |
+| 2026-04-25 | Mailto submission for /contact and /bookings | Functional today, no backend needed, no spam exposure. Hosted form swap is one component change in P5 |
+| 2026-04-25 | Footer lifted to root layout | Every inner page needs it; lifting once beats wiring it on each new route |
+| 2026-04-25 | Skipped /events and /visit dedicated pages | Events data is mock; Visit section on home covers the hours+address brief. Revisit when real content is ready |
 
 ---
 

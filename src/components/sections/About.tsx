@@ -38,7 +38,7 @@ export default function About() {
 
         <Reveal delay={0.35} amount={0.4}>
           <div className="mt-12 flex justify-center">
-            <PillButton href="#about-more" variant="spicy">
+            <PillButton href="/about" variant="spicy">
               Learn More
             </PillButton>
           </div>

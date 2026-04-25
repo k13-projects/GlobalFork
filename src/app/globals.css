@@ -65,6 +65,25 @@ body {
   font-weight: 400;
 }
 
+/* Form inputs — used by /contact and /bookings */
+.form-input {
+  width: 100%;
+  border: 1px solid color-mix(in oklab, var(--color-iron) 18%, transparent);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: var(--color-sand);
+  color: var(--color-iron);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-clay);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-clay) 18%, transparent);
+}
+
 /* Honor user motion preference globally */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
