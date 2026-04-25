@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-24 · **Current phase:** P0 complete → P1 next · **Active branch:** `gf_apr24_v1`
+> **Last updated:** 2026-04-24 · **Current phase:** P1 complete → P2 next · **Active branch:** `gf_apr24_v1`
 
 ---
 
@@ -131,19 +131,37 @@ Deferred decisions (punt to when the need is real):
 - [x] `pnpm dev` boots clean, `/` returns HTTP 200, key markup present
 - [ ] Vercel preview link (deferred to first push — Kazimiro to connect repo to Vercel)
 
-## 6a · P1 checklist *(next)*
+## 6a · P1 checklist *(complete)*
 
-- [ ] Replace LogoBadge SVG placeholder with the official badge from `ASSETS/LOGOS/GLOBAL FORK BADGE SDCA.png` (export to SVG)
-- [ ] Build four element icon SVG components (Sun · Community · Earth · Water) from `ASSETS/ELEMENTS/`
-- [ ] Build pattern background components from `ASSETS/PATTERNS/`
-- [ ] Confirm hex codes from IDENTITY.pdf and replace approximations in `globals.css`
-- [ ] Build all 8 home sections statically with real copy: Hero · Tagline · About · Vendors · Events · Bookings · Visit · Follow · Footer
-- [ ] Diagonal section transitions component
-- [ ] Pill CTA component
-- [ ] Script accent text utility
-- [ ] Vendor card grid with the 6 real vendors (placeholder photos until Lorena delivers)
-- [ ] Event card primitive with stacked-date layout
-- [ ] Footer with Connect block + lockup wordmark
+- [x] Real PNG assets (logo badge, lockup, 4 element icons, 3 script accents, 9 patterns) copied to `public/brand/`
+- [x] LogoBadge swapped to real badge PNG via `next/image` (variant: dark/light)
+- [x] `ElementIcon` + `ElementIconRow` primitives (Sun · Community · Earth · Water)
+- [x] `ScriptAccent` primitive (3 named accents, 3 color variants)
+- [x] `PatternOverlay` primitive (9 named patterns, opacity + size + blend props)
+- [x] `PillButton` primitive (5 color variants, Link-based, accessible)
+- [x] `DiagonalCut` primitive (clip-path triangle, flippable)
+- [x] All 10 sections built with real copy + brand imagery:
+      Hero · Tagline · About · Vendors · Events · EventsRender · Bookings · Visit · Follow · SiteFooter
+- [x] 6 vendors wired with real names, blurbs, IG handles, hover reveal
+- [x] 3 event cards with stacked month/day layout
+- [x] 9 am – 9 pm hours wired in Visit
+- [x] Production build green, TypeScript clean, page prerenders as static
+- [ ] *Deferred to P2*: Confirm exact hex codes from IDENTITY.pdf (current values are sampled approximations and look correct against mockup)
+- [ ] *Deferred to P2*: True full-bleed hero photo (placeholder gradient until Lorena delivers)
+
+## 6b · P2 checklist *(next)*
+
+- [ ] Auto-triggered scroll reveals via IntersectionObserver (fade + slide-up cadence)
+- [ ] Element icons enter on intersection with stagger
+- [ ] Headline split-text reveal on Tagline
+- [ ] Vendor card mask-reveal as user scrolls past grid
+- [ ] Lenis polish: snap thresholds, scrollTo handler for nav anchors
+- [ ] Element-orbit moment between Tagline and About (signature scroll moment)
+- [ ] Script accent draw-on-enter (SVG path or mask reveal)
+- [ ] Reduced-motion fallback verified for every reveal
+- [ ] Mobile responsive pass (currently desktop-first; mockup has no mobile spec yet)
+- [ ] Confirm hex codes from IDENTITY.pdf and lock palette
+- [ ] Hook Vercel preview to repo so commits auto-deploy
 
 ---
 
@@ -158,17 +176,21 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-24 | Next.js 16 (not 15) | Latest stable — ships React 19 + Turbopack default + improved RSC streaming |
 | 2026-04-24 | Scaffolded into temp dir then rsync'd to root | npm naming rules reject capital-letter folder name "GlobalFork"; preserved existing .git + PLAN.md |
 | 2026-04-24 | Lenis as React component, not provider with context | No consumers need scroll state in P0; keep API surface tiny |
+| 2026-04-24 | Use PNG brand assets directly via next/image (not SVG conversion) | Time to value > pixel purity at this stage. Convert to SVG in P3 when motion benefits from vector |
+| 2026-04-24 | Element icons use `[filter:invert(1)]` for cream-on-dark | Source PNGs are dark-on-transparent; one-line CSS over re-exporting from Illustrator |
+| 2026-04-24 | Vendor cards: solid-tone placeholders with hover reveal | Lorena will deliver real photography; structure + interaction are locked, swap is one-line per vendor |
+| 2026-04-24 | Diagonal section cuts via clip-path polygon | Cleaner than SVG masks; honors prefers-reduced-motion automatically (no animation involved) |
 
 ---
 
 ## 8 · Open questions for Kazimiro
 
-1. **Pitch font license** — do the stakeholders own a web license, or do we sub in a free alternative permanently?
+1. ~~**Pitch font license**~~ → **Deferred.** Stay on Archivo Narrow fallback for now.
 2. **Content owner for Events** — who will keep the event calendar updated? (drives CMS choice)
-3. **Booking flow** — does "Bookings for 15+" submit to an email, a reservation system (OpenTable/Resy), or just a form to owners?
-4. **Hours** — copy shows "From am to 9:00 pm" with the start time blank. What's the open time?
-5. **Vendor photography** — the mockup uses placeholder Italian food photos. Will Lorena provide final vendor-specific shoots before P3?
-6. **Plaza panorama** — is there existing plaza photography/timelapse, or do we need to commission it?
+3. ~~**Booking flow**~~ → **Deferred.** Placeholder CTA in P1; flow decision in P4.
+4. ~~**Hours**~~ → **9 am – 9 pm** (Monday–Friday from copy; weekends TBC).
+5. ~~**Vendor photography**~~ → **Placeholders OK** until Lorena delivers final shoots.
+6. **Plaza panorama** — is there existing plaza photography/timelapse, or do we need to commission it? *(P3 concern)*
 
 ---
 
