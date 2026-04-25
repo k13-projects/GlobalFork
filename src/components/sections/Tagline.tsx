@@ -14,15 +14,20 @@ export default function Tagline() {
     >
       <PatternOverlay name="bars" size={420} opacity={0.08} />
 
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-12">
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-10 md:gap-12">
         <StaggerGroup
           stagger={0.12}
           amount={0.6}
-          className="flex items-center justify-center gap-8"
+          className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8"
         >
           {ELEMENTS.map((name) => (
             <StaggerItem key={name}>
-              <ElementIcon name={name} variant="light" size={56} />
+              <ElementIcon
+                name={name}
+                variant="light"
+                size={44}
+                className="md:!h-14 md:!w-14"
+              />
             </StaggerItem>
           ))}
         </StaggerGroup>
@@ -30,7 +35,7 @@ export default function Tagline() {
         <SplitHeadline
           lineOne="A world of flavors."
           lineTwo="One place to gather."
-          className="font-display text-[3.25rem] uppercase leading-[0.98] tracking-tight md:text-[5.5rem] lg:text-[6.25rem]"
+          className="px-2 font-display text-[2.25rem] uppercase leading-[1.05] tracking-tight sm:text-[3.25rem] md:text-[5.5rem] md:leading-[0.98] lg:text-[6.25rem]"
         />
       </div>
     </section>

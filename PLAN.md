@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-24 · **Current phase:** P2 complete → P3 next · **Active branch:** `gf_apr24_v1`
+> **Last updated:** 2026-04-24 · **Current phase:** P3 partial → P4 next · **Active branch:** `gf_apr24_v2`
 
 ---
 
@@ -172,17 +172,30 @@ Deferred decisions (punt to when the need is real):
 - [ ] *Deferred to P3*: Script accent SVG draw-on-enter (currently fades; would need SVG paths instead of PNGs)
 - [ ] *Deferred to P3*: Mobile responsive pass — mockup is desktop only; mobile design needs Lorena input
 
-## 6c · P3 checklist *(next — the "wow" layer)*
+## 6c · P3 checklist *(partial — shipped what was unblocked)*
 
-- [ ] Hero gradient mesh / WebGL — evaluate scope vs ship date
-- [ ] Element-orbit moment: 4 elements orbit a central glyph as Tagline scrolls past
-- [ ] Vendor section: horizontal "piazza walk" scroll with pinning
-- [ ] Plaza panorama: scrub-locked image sequence (24-frame dusk timelapse) — needs photography from Lorena
-- [ ] Custom Mapbox style for Visit using palette (sand/grove/clay)
-- [ ] Convert script accents to SVG and add path draw-on
-- [ ] Mobile responsive pass with full QA
-- [ ] Hex code lock from IDENTITY.pdf
-- [ ] Hook Vercel preview to repo so commits auto-deploy
+**Shipped this phase:**
+- [x] Hero living gradient — two slow-drift radial gradients + light-shaft sweep, motion-pref aware
+- [x] **ElementOrbit signature moment** — 4 elements break from row, fan out around a central GF glyph, slowly rotate as user scrolls; ResizeObserver-driven radius for responsive
+- [x] **Mobile nav** — hamburger toggle below `md`, full-screen drawer with staggered link reveal, Escape + body-scroll-lock
+- [x] **Mobile responsive baseline** — Tagline icon row + headline scale gracefully, nav badge resizes, drawer covers full viewport
+- [x] Production build green; HTML at 105KB with new moment + drawer wired
+
+**Deferred to P4 (need external resources or design conversation):**
+- [ ] Vendor "piazza walk" horizontal scroll — needs design conversation (does the grid stay? does this become primary?)
+- [ ] Plaza panorama scrub — needs Lorena's 24-frame dusk timelapse photography
+- [ ] Custom Mapbox style — needs API key + design tokens conversation; rejected adding a placeholder map (not in Lorena's mockup)
+- [ ] Convert script accents PNG → SVG with path draw-on — needs vector source files from Lorena
+- [ ] Hex code lock from IDENTITY.pdf — current sampled values look right, can refine when palette gets a final review
+- [ ] Hook Vercel preview to repo — Kazimiro action: connect `k13-projects/GlobalFork` to a Vercel project
+
+## 6d · P4 checklist *(next — content + content layer)*
+
+- [ ] Inner pages: `/about`, `/vendors`, `/vendors/[slug]`, `/events`, `/events/[slug]`, `/visit`, `/contact`
+- [ ] Bookings form (15+ guests) — multi-step, lands in inbox until reservation system is decided
+- [ ] CMS choice + wire-up (Sanity vs Payload) — depends on who owns Events/Vendors content
+- [ ] Real photography swap (vendors + hero render) when Lorena delivers
+- [ ] Pull P3 deferred items as resources unblock
 
 ---
 
@@ -205,6 +218,11 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-24 | Reveal/Stagger as standalone client components | Server components stay server; client islands stay small. Pages still prerender as static. |
 | 2026-04-24 | Lenis lifted to provider with anchor-click interception | Nav anchors and any future `<a href="#">` get smooth scroll for free without per-link wiring |
 | 2026-04-24 | Belt-and-suspenders reduced-motion: useReducedMotion + global CSS clamp | Defense in depth — if a third-party animation slips in, the CSS rule still neutralizes it |
+| 2026-04-24 | ElementOrbit as a dedicated section between Tagline and About | Original plan called for it; uses brand's four-element vocabulary as a focal point. Marks the visual "shift" from arrival (hero) to story (about). |
+| 2026-04-24 | ElementOrbit radius via ResizeObserver, not window-globals | SSR-safe; adapts cleanly to viewport changes without remounts |
+| 2026-04-24 | Rejected building a Mapbox/SVG map placeholder | Not in Lorena's mockup. "Go Now" button + address is enough; map decision belongs to a real conversation in P4. |
+| 2026-04-24 | Mobile nav as hamburger + full-screen drawer (not slide-in side drawer) | Six items are too many for an icon row; full-screen lets the typography breathe and matches the brand's confident voice |
+| 2026-04-24 | Hero motion via animated CSS gradients (no WebGL) | Achieves "living" feel without the WebGL bundle weight; WebGL stays available for P3 follow-up if Eren wants more |
 
 ---
 

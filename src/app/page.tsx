@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import Tagline from "@/components/sections/Tagline";
+import ElementOrbit from "@/components/sections/ElementOrbit";
 import About from "@/components/sections/About";
 import Vendors from "@/components/sections/Vendors";
 import Events from "@/components/sections/Events";
@@ -14,6 +15,7 @@ export default function Home() {
     <>
       <Hero />
       <Tagline />
+      <ElementOrbit />
       <About />
       <Vendors />
       <Events />
