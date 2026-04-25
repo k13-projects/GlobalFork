@@ -26,7 +26,10 @@ const script = Sacramento({
 });
 
 export const metadata: Metadata = {
-  title: "Global Fork — A world of flavors. One place to gather.",
+  title: {
+    default: "Global Fork — A world of flavors. One place to gather.",
+    template: "%s",
+  },
   description:
     "A vibrant San Diego dining destination where global flavors, craft drinks, and cultural experiences come together in one open, piazza-inspired space.",
   metadataBase: new URL("https://globalfork.example"),
@@ -34,7 +37,16 @@ export const metadata: Metadata = {
     title: "Global Fork — San Diego",
     description: "A world of flavors. One place to gather.",
     type: "website",
+    images: [
+      {
+        url: "/og?title=Global+Fork&eyebrow=San+Diego%2C+CA&tagline=A+world+of+flavors.+One+place+to+gather.",
+        width: 1200,
+        height: 630,
+        alt: "Global Fork — A world of flavors. One place to gather.",
+      },
+    ],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({
@@ -46,9 +58,14 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} ${script.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[var(--color-sand)] text-[var(--color-iron)]">
+        <a href="#main" className="skip-to-content">
+          Skip to content
+        </a>
         <SmoothScroll>
           <SiteNav />
-          <main>{children}</main>
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
           <SiteFooter />
         </SmoothScroll>
       </body>

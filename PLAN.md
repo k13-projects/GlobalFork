@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-25 · **Current phase:** P4 partial → P5 next · **Active branch:** `gf_apr25_v1`
+> **Last updated:** 2026-04-25 · **Current phase:** P5 partial → ship-blockers external · **Active branch:** `gf_apr25_v2`
 
 ---
 
@@ -214,16 +214,28 @@ Deferred decisions (punt to when the need is real):
 - [ ] Hosted form handler — current mailto flow is functional but not analytics-friendly
 - [ ] P3 deferred items still pending: piazza-walk, plaza panorama, custom Mapbox, script SVG draw-on, hex lock, Vercel preview hookup
 
-## 6e · P5 checklist *(next — polish + ship)*
+## 6e · P5 checklist *(partial — code-side ship-ready, blockers external)*
 
-- [ ] Vercel preview hookup (Kazimiro action: connect repo)
-- [ ] Real photography swap (when Lorena delivers)
-- [ ] Perf pass: LCP < 2s, motion-safe 60fps on mid-tier hardware
-- [ ] A11y audit: keyboard nav, ARIA labels, color contrast on all pages
-- [ ] SEO/OG: per-route metadata + auto-rendered OG images via `@vercel/og`
-- [ ] Sitemap + robots
-- [ ] Eren review pass
-- [ ] Production deploy
+**Shipped this phase:**
+- [x] **Per-route metadata** on every page including title, description, openGraph
+- [x] **Dynamic OG image route** at `/og` (edge runtime) using `next/og` ImageResponse — palette + type matched, accepts `?title=&eyebrow=&tagline=&tone=` params
+- [x] **Per-vendor OG images** with the vendor's tone color baked in (six variants)
+- [x] **`sitemap.xml`** via `app/sitemap.ts` — 11 URLs (5 static + 6 vendor SSG pages), real lastModified
+- [x] **`robots.txt`** via `app/robots.ts` — allows all, points at sitemap
+- [x] **A11y**: skip-to-content link (appears on first Tab), visible `:focus-visible` ring in Clay, `<main id="main">` target
+- [x] **`not-found.tsx`** — branded 404 with three CTAs (Home / Vendors / Contact); used by `notFound()` in `/vendors/[slug]`
+- [x] **`error.tsx`** — global error boundary with retry + home link, surfaces `error.digest` for support
+- [x] Form layouts split: `/contact` and `/bookings` are client components, so metadata moved to sibling `layout.tsx` files
+- [x] Build green: 16 prerendered routes + 1 dynamic edge route (/og); all smoke tests 200/404 as expected
+
+**Deferred — external blockers:**
+- [ ] Vercel preview hookup — Kazimiro action: connect `k13-projects/GlobalFork` to a Vercel project
+- [ ] Real photography swap — Lorena delivery
+- [ ] Hosted form handler swap (replace mailto) — needs bookings inbox configured + spam strategy
+- [ ] Perf field test — LCP < 2s on 4G, 60fps motion on mid-tier — needs real deploy + DevTools session
+- [ ] Eren review pass — needs deploy URL
+- [ ] Production deploy — needs Vercel hookup + Eren signoff
+- [ ] Carry-overs from P3/P4: piazza-walk, plaza panorama, custom Mapbox, script SVG draw-on, hex lock from IDENTITY.pdf
 
 ---
 
@@ -256,6 +268,10 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-25 | Mailto submission for /contact and /bookings | Functional today, no backend needed, no spam exposure. Hosted form swap is one component change in P5 |
 | 2026-04-25 | Footer lifted to root layout | Every inner page needs it; lifting once beats wiring it on each new route |
 | 2026-04-25 | Skipped /events and /visit dedicated pages | Events data is mock; Visit section on home covers the hours+address brief. Revisit when real content is ready |
+| 2026-04-25 | OG route as edge runtime + dynamic | Edge handles many concurrent requests cheaply; OG params let one route serve every page's image without one-off SVGs |
+| 2026-04-25 | Metadata for client-component routes lives in sibling `layout.tsx` | Next requires server components for metadata; layout files are the cleanest split |
+| 2026-04-25 | Skip-to-content + visible focus ring globally | Accessibility floor — minimal but real; deeper audit waits for a real device + screen reader pass |
+| 2026-04-25 | not-found and error boundaries are full branded pages, not raw text | The 404/500 still represents the brand; cheap to do, expensive to skip |
 
 ---
 

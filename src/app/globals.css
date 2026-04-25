@@ -65,6 +65,33 @@ body {
   font-weight: 400;
 }
 
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content link — appears on first Tab */
+.skip-to-content {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--color-iron);
+  color: var(--color-sand);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: top 0.18s ease;
+}
+.skip-to-content:focus {
+  top: 16px;
+}
+
 /* Form inputs — used by /contact and /bookings */
 .form-input {
   width: 100%;

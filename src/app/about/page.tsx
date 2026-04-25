@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   title: "About — Global Fork",
   description:
     "A 4,685 sqft venue connecting indoor and outdoor living, flowing into a 10,000 sqft cobblestone plaza in one of California's most celebrated food neighborhoods.",
+  openGraph: {
+    title: "About — Global Fork",
+    description: "A vibrant gathering place.",
+    images: [
+      "/og?title=About+Us&eyebrow=Global+Fork&tagline=A+vibrant+gathering+place+in+downtown+San+Diego.",
+    ],
+  },
 };
 
 const FACTS = [

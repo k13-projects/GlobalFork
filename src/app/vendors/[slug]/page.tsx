@@ -13,13 +13,30 @@ export function generateStaticParams() {
 
 type Params = Promise<{ slug: string }>;
 
+// Map var(--color-*) tones to actual hex values for the OG renderer
+const TONE_HEX: Record<string, string> = {
+  "var(--color-clay-deep)": "#8a3934",
+  "var(--color-spicy)": "#b86b3d",
+  "var(--color-grove)": "#4f5f3b",
+  "var(--color-tide)": "#243843",
+  "var(--color-misty)": "#9aa28a",
+  "var(--color-harvey)": "#b08539",
+};
+
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const vendor = getVendor(slug);
   if (!vendor) return { title: "Vendor — Global Fork" };
+  const tone = TONE_HEX[vendor.tone] ?? "#2f2c28";
+  const og = `/og?title=${encodeURIComponent(vendor.name)}&eyebrow=${encodeURIComponent(`${vendor.cuisine} · ${vendor.origin}`)}&tagline=${encodeURIComponent(vendor.blurb)}&tone=${encodeURIComponent(tone)}`;
   return {
     title: `${vendor.name} — Global Fork`,
     description: vendor.blurb,
+    openGraph: {
+      title: `${vendor.name} — Global Fork`,
+      description: vendor.blurb,
+      images: [og],
+    },
   };
 }
 

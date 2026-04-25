@@ -11,6 +11,13 @@ export const metadata: Metadata = {
   title: "Our Vendors — Global Fork",
   description:
     "Meet the six culinary concepts that make Global Fork home — MOTO Pizza, Cosmos Burger, La Vida, Lobster Lab, Handel's Ice Cream, and Thai Style Kitchen.",
+  openGraph: {
+    title: "Our Vendors — Global Fork",
+    description: "Six concepts. One table.",
+    images: [
+      "/og?title=Our+Vendors&eyebrow=Global+Fork&tagline=Six+concepts.+One+table.&tone=%23a3443e",
+    ],
+  },
 };
 
 export default function VendorsPage() {
