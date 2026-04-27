@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-26 · **Current phase:** P3 carry-over (piazza walk shipped) — ship-blockers still external · **Active branch:** `gf_apr26_v1`
+> **Last updated:** 2026-04-26 · **Current phase:** P5 — placeholder photography harvested from brief; ship-blockers still external · **Active branch:** `gf_apr26_v3`
 
 ---
 
@@ -230,7 +230,7 @@ Deferred decisions (punt to when the need is real):
 
 **Deferred — external blockers:**
 - [ ] Vercel preview hookup — Kazimiro action: connect `k13-projects/GlobalFork` to a Vercel project
-- [ ] Real photography swap — Lorena delivery
+- [~] Real photography swap — Lorena delivery (interim: brief-harvested placeholders for hero, bookings, visit, and vendor cards)
 - [ ] Hosted form handler swap (replace mailto) — needs bookings inbox configured + spam strategy
 - [ ] Perf field test — LCP < 2s on 4G, 60fps motion on mid-tier — needs real deploy + DevTools session
 - [ ] Eren review pass — needs deploy URL
@@ -275,6 +275,8 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-26 | Piazza-walk + grid both render to DOM, CSS picks viewport | Avoids hydration flash + matchMedia race; cost is small (6 vendor entries duplicated); benefit is deterministic SSR |
 | 2026-04-26 | Section is 320vh tall (sticky 100vh stage inside) | Gives 220vh of vertical scroll mapped to ~340vw of horizontal travel — comfortable cadence (~1.5vw per 1vh), neither blink-and-miss nor exhausting |
 | 2026-04-26 | Piazza walk replaces grid on desktop, not supplements | Grid in addition to walk would create two views of the same content; pick one per viewport |
+| 2026-04-26 | Placeholder photography harvested from brief PDF (`pdfimages -all` + Pillow slicing) | Brief is canonical; faster + higher fidelity than screenshotting or stock. Used for hero (bar render), bookings (dining hall), visit (storefront), and 6 vendor card covers |
+| 2026-04-26 | Vendor cover photos rendered with `mix-blend-luminosity` over `tone` | Brand color still bleeds through, signaling "placeholder" rather than pretending these are vendor-specific shots |
 
 ---
 
@@ -284,7 +286,7 @@ Deferred decisions (punt to when the need is real):
 2. **Content owner for Events** — who will keep the event calendar updated? (drives CMS choice)
 3. ~~**Booking flow**~~ → **Deferred.** Placeholder CTA in P1; flow decision in P4.
 4. ~~**Hours**~~ → **9 am – 9 pm** (Monday–Friday from copy; weekends TBC).
-5. ~~**Vendor photography**~~ → **Placeholders OK** until Lorena delivers final shoots.
+5. ~~**Vendor photography**~~ → **Brief-harvested placeholders shipped** on `gf_apr26_v3`; swap to Lorena's final shoots when delivered.
 6. **Plaza panorama** — is there existing plaza photography/timelapse, or do we need to commission it? *(P3 concern)*
 
 ---

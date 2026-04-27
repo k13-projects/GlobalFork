@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 /**
- * Hero — full-bleed living gradient.
- * Two slow-drifting radial gradients give the impression of warm light
- * shifting across the plaza at dusk. Placeholder until the real bar
- * render arrives.
+ * Hero — bar render + warm gradient overlay.
+ * The render sits as the base photographic layer; gradients drift on top
+ * to keep the dusk feel even while the photo grounds the plaza.
  */
 export default function Hero() {
   const reduce = useReducedMotion();
@@ -16,6 +16,15 @@ export default function Hero() {
       aria-label="Global Fork — hero"
       className="relative h-[78vh] min-h-[480px] w-full overflow-hidden bg-[var(--color-iron)]"
     >
+      <Image
+        src="/photos/hero-bar.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover opacity-70"
+      />
+
       {/* Base warm radial */}
       <motion.div
         aria-hidden

@@ -52,6 +52,15 @@ export default function VendorGrid() {
                   className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                   style={{ background: v.tone }}
                 />
+                {v.cover && (
+                  <Image
+                    src={v.cover}
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-80 mix-blend-luminosity"
+                  />
+                )}
                 <Image
                   aria-hidden
                   src="/brand/patterns/earth-white.png"

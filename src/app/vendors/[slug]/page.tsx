@@ -142,13 +142,22 @@ export default async function VendorPage({ params }: { params: Params }) {
                   className="group relative flex aspect-[5/4] items-end p-6"
                   style={{ background: o.tone }}
                 >
+                  {o.cover && (
+                    <Image
+                      src={o.cover}
+                      alt=""
+                      fill
+                      sizes="(min-width:640px) 33vw, 100vw"
+                      className="object-cover opacity-80 mix-blend-luminosity transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                   <Image
                     aria-hidden
                     src="/brand/patterns/earth-white.png"
                     alt=""
                     fill
                     sizes="(min-width:640px) 33vw, 100vw"
-                    className="object-cover opacity-15 mix-blend-overlay transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover opacity-15 mix-blend-overlay"
                   />
                   <span className="relative font-display text-xl uppercase tracking-wide">
                     {o.name}

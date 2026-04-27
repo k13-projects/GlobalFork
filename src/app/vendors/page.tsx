@@ -52,13 +52,22 @@ export default function VendorsPage() {
                     className="relative aspect-[4/5] overflow-hidden md:aspect-auto"
                     style={{ background: v.tone }}
                   >
+                    {v.cover && (
+                      <Image
+                        src={v.cover}
+                        alt=""
+                        fill
+                        sizes="(min-width:768px) 25vw, 40vw"
+                        className="object-cover opacity-80 mix-blend-luminosity transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
                     <Image
                       aria-hidden
                       src="/brand/patterns/earth-white.png"
                       alt=""
                       fill
                       sizes="(min-width:768px) 25vw, 40vw"
-                      className="object-cover opacity-15 mix-blend-overlay transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover opacity-15 mix-blend-overlay"
                     />
                   </div>
                   <div className="flex flex-col justify-between p-6 md:p-8">

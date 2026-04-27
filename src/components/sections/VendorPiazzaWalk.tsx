@@ -84,6 +84,16 @@ export default function VendorPiazzaWalk() {
                     className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                     style={{ background: v.tone }}
                   />
+                  {v.cover && (
+                    <Image
+                      src={v.cover}
+                      alt=""
+                      fill
+                      sizes="70vw"
+                      className="object-cover opacity-80 mix-blend-luminosity transition-transform duration-700 group-hover:scale-105"
+                      priority={i < 2}
+                    />
+                  )}
                   <Image
                     aria-hidden
                     src="/brand/patterns/earth-white.png"
@@ -91,7 +101,6 @@ export default function VendorPiazzaWalk() {
                     fill
                     sizes="70vw"
                     className="object-cover opacity-15 mix-blend-overlay"
-                    priority={i < 2}
                   />
 
                   {/* Index numeral — big, faded, like a chapter mark */}
