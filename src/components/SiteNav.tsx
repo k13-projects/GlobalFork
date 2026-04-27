@@ -18,71 +18,90 @@ const RIGHT = [
 const BADGE_DESKTOP = 140;
 const BADGE_MOBILE = 84;
 
+// `mb` on the divider segments controls where the line sits within the row.
+// Row height = logo height. divider y = row_bottom - DIVIDER_FROM_BOTTOM - 1.
+const DIVIDER_FROM_BOTTOM_DESKTOP = 42; // ~70% down the logo
+const DIVIDER_FROM_BOTTOM_MOBILE = 26;
+
 export default function SiteNav() {
   return (
     <NavCondense>
       <header>
-        {/* Badge — centered above the divider */}
-        <div className="flex justify-center pt-5 pb-4 md:pt-7 md:pb-5">
+        {/* Desktop: divider | links · logo · links | divider — dividers on the
+            outer sides fill the space between the page edges and the central
+            cluster, pulling the link groups in close to the logo */}
+        <div className="hidden items-end gap-5 px-6 pb-3 pt-3 md:flex md:px-8 lg:gap-7">
+          {/* Outer-left divider segment */}
+          <div
+            aria-hidden
+            className="h-px flex-1 bg-[var(--color-iron)]/15"
+            style={{ marginBottom: DIVIDER_FROM_BOTTOM_DESKTOP }}
+          />
+
+          <ul className="flex items-center gap-6 pb-3 font-display text-sm uppercase tracking-[0.18em] text-[var(--color-iron)] lg:gap-10">
+            {LEFT.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition-opacity hover:opacity-60">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
           <Link
             href="/"
             aria-label="Global Fork — Home"
-            className="text-[color:var(--color-iron)]"
+            className="shrink-0 text-[color:var(--color-iron)]"
           >
-            <span className="md:hidden">
-              <LogoBadge size={BADGE_MOBILE} />
-            </span>
-            <span className="hidden md:block">
-              <LogoBadge size={BADGE_DESKTOP} />
-            </span>
+            <LogoBadge size={BADGE_DESKTOP} />
           </Link>
-        </div>
 
-        {/* Full-width divider */}
-        <div aria-hidden className="h-px bg-[var(--color-iron)]/15" />
-
-        {/* Nav row — capped width so items cluster toward the centre,
-            not stretched to the page edges */}
-        <nav
-          aria-label="Primary"
-          className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 md:px-8 md:py-4"
-        >
-          {/* LEFT — desktop links */}
-          <ul className="hidden items-center gap-8 font-display text-sm uppercase tracking-[0.18em] text-[var(--color-iron)] md:flex lg:gap-12">
-            {LEFT.map((item) => (
+          <ul className="flex items-center gap-6 pb-3 font-display text-sm uppercase tracking-[0.18em] text-[var(--color-iron)] lg:gap-10">
+            {RIGHT.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="transition-opacity hover:opacity-60"
-                >
+                <Link href={item.href} className="transition-opacity hover:opacity-60">
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
 
-          {/* LEFT — mobile hamburger */}
-          <div className="md:hidden">
+          {/* Outer-right divider segment */}
+          <div
+            aria-hidden
+            className="h-px flex-1 bg-[var(--color-iron)]/15"
+            style={{ marginBottom: DIVIDER_FROM_BOTTOM_DESKTOP }}
+          />
+        </div>
+
+        {/* Mobile: divider | hamburger · logo · spacer | divider */}
+        <div className="flex items-end gap-3 px-4 pb-3 pt-3 md:hidden">
+          <div
+            aria-hidden
+            className="h-px flex-1 bg-[var(--color-iron)]/15"
+            style={{ marginBottom: DIVIDER_FROM_BOTTOM_MOBILE }}
+          />
+
+          <div className="pb-2">
             <MobileMenu />
           </div>
 
-          {/* RIGHT — desktop links */}
-          <ul className="hidden items-center gap-8 font-display text-sm uppercase tracking-[0.18em] text-[var(--color-iron)] md:flex lg:gap-12">
-            {RIGHT.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="transition-opacity hover:opacity-60"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <Link
+            href="/"
+            aria-label="Global Fork — Home"
+            className="shrink-0 text-[color:var(--color-iron)]"
+          >
+            <LogoBadge size={BADGE_MOBILE} />
+          </Link>
 
-          {/* RIGHT — mobile spacer to keep the badge centred */}
-          <div className="h-10 w-10 md:hidden" aria-hidden />
-        </nav>
+          <div className="h-10 w-10 shrink-0 pb-2" aria-hidden />
+
+          <div
+            aria-hidden
+            className="h-px flex-1 bg-[var(--color-iron)]/15"
+            style={{ marginBottom: DIVIDER_FROM_BOTTOM_MOBILE }}
+          />
+        </div>
       </header>
     </NavCondense>
   );
