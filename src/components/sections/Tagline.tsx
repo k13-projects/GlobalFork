@@ -25,8 +25,8 @@ export default function Tagline() {
               <ElementIcon
                 name={name}
                 variant="light"
-                size={44}
-                className="md:!h-14 md:!w-14"
+                size={56}
+                className="md:!h-[72px] md:!w-[72px] lg:!h-[88px] lg:!w-[88px]"
               />
             </StaggerItem>
           ))}
@@ -35,7 +35,7 @@ export default function Tagline() {
         <SplitHeadline
           lineOne="A world of flavors."
           lineTwo="One place to gather."
-          className="px-2 font-display text-[2.25rem] uppercase leading-[1.05] tracking-tight sm:text-[3.25rem] md:text-[5.5rem] md:leading-[0.98] lg:text-[6.25rem]"
+          className="px-2 font-display text-[1.75rem] uppercase leading-[1.05] tracking-tight sm:text-[2.25rem] md:text-[3.25rem] md:leading-[1] lg:text-[3.75rem]"
         />
       </div>
     </section>
