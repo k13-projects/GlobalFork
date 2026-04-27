@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-25 · **Current phase:** P5 partial → ship-blockers external · **Active branch:** `gf_apr25_v2`
+> **Last updated:** 2026-04-26 · **Current phase:** P3 carry-over (piazza walk shipped) — ship-blockers still external · **Active branch:** `gf_apr26_v1`
 
 ---
 
@@ -182,7 +182,7 @@ Deferred decisions (punt to when the need is real):
 - [x] Production build green; HTML at 105KB with new moment + drawer wired
 
 **Deferred to P4 (need external resources or design conversation):**
-- [ ] Vendor "piazza walk" horizontal scroll — needs design conversation (does the grid stay? does this become primary?)
+- [x] **Vendor "piazza walk" horizontal scroll** — shipped 2026-04-26 on `gf_apr26_v1`. Pinned 320vh stage on desktop with horizontal scroll-driven translate; mobile renders the grid; both layouts coexist in DOM, CSS picks viewport.
 - [ ] Plaza panorama scrub — needs Lorena's 24-frame dusk timelapse photography
 - [ ] Custom Mapbox style — needs API key + design tokens conversation; rejected adding a placeholder map (not in Lorena's mockup)
 - [ ] Convert script accents PNG → SVG with path draw-on — needs vector source files from Lorena
@@ -235,7 +235,7 @@ Deferred decisions (punt to when the need is real):
 - [ ] Perf field test — LCP < 2s on 4G, 60fps motion on mid-tier — needs real deploy + DevTools session
 - [ ] Eren review pass — needs deploy URL
 - [ ] Production deploy — needs Vercel hookup + Eren signoff
-- [ ] Carry-overs from P3/P4: piazza-walk, plaza panorama, custom Mapbox, script SVG draw-on, hex lock from IDENTITY.pdf
+- [ ] Carry-overs from P3/P4: ~~piazza-walk~~ (shipped), plaza panorama, custom Mapbox, script SVG draw-on, hex lock from IDENTITY.pdf
 
 ---
 
@@ -272,6 +272,9 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-25 | Metadata for client-component routes lives in sibling `layout.tsx` | Next requires server components for metadata; layout files are the cleanest split |
 | 2026-04-25 | Skip-to-content + visible focus ring globally | Accessibility floor — minimal but real; deeper audit waits for a real device + screen reader pass |
 | 2026-04-25 | not-found and error boundaries are full branded pages, not raw text | The 404/500 still represents the brand; cheap to do, expensive to skip |
+| 2026-04-26 | Piazza-walk + grid both render to DOM, CSS picks viewport | Avoids hydration flash + matchMedia race; cost is small (6 vendor entries duplicated); benefit is deterministic SSR |
+| 2026-04-26 | Section is 320vh tall (sticky 100vh stage inside) | Gives 220vh of vertical scroll mapped to ~340vw of horizontal travel — comfortable cadence (~1.5vw per 1vh), neither blink-and-miss nor exhausting |
+| 2026-04-26 | Piazza walk replaces grid on desktop, not supplements | Grid in addition to walk would create two views of the same content; pick one per viewport |
 
 ---
 
