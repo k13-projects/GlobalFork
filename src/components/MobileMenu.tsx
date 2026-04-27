@@ -1,43 +1,89 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 
 const ITEMS = [
-  { label: "About Us", href: "/about" },
-  { label: "Our Vendors", href: "/vendors" },
+  { label: "About Us", href: "/#about" },
+  { label: "Our Vendors", href: "/#vendors" },
   { label: "Events", href: "/#events" },
-  { label: "Bookings", href: "/bookings" },
+  { label: "Bookings", href: "/#bookings" },
   { label: "Visit Us", href: "/#visit" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/#contact" },
 ];
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Close on hash change (anchor click) and on Escape
+  // Close on Escape, lock body scroll, trap focus inside the drawer.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+
+    // Capture the trigger node now so the cleanup can restore focus reliably
+    // even after React has updated the ref.
+    const triggerNode = triggerRef.current;
+
+    const focusFirst = () => {
+      const first = drawerRef.current?.querySelector<HTMLElement>(FOCUSABLE);
+      first?.focus();
     };
+    // Drawer mounts via AnimatePresence; defer one frame so the node exists.
+    const raf = requestAnimationFrame(focusFirst);
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const root = drawerRef.current;
+      if (!root) return;
+      const focusables = Array.from(
+        root.querySelectorAll<HTMLElement>(FOCUSABLE),
+      ).filter((el) => !el.hasAttribute("disabled"));
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
+      cancelAnimationFrame(raf);
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      triggerNode?.focus();
     };
   }, [open]);
 
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
+        aria-controls="mobile-menu-drawer"
         onClick={() => setOpen((o) => !o)}
-        className="relative flex h-10 w-10 flex-col items-center justify-center gap-[5px] text-[var(--color-iron)] md:hidden"
+        className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] text-[var(--color-iron)] md:hidden"
       >
         <motion.span
           aria-hidden
@@ -60,6 +106,8 @@ export default function MobileMenu() {
         {open && (
           <motion.div
             key="drawer"
+            ref={drawerRef}
+            id="mobile-menu-drawer"
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"

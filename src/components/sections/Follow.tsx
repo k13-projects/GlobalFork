@@ -1,7 +1,11 @@
-import PillButton from "../PillButton";
 import DiagonalCut from "../DiagonalCut";
 import Reveal from "../motion/Reveal";
 import { StaggerGroup, StaggerItem } from "../motion/Stagger";
+import { siteConfig } from "@/lib/site-config";
+
+const instagramHref = siteConfig.social.instagram
+  ? `https://instagram.com/${siteConfig.social.instagram.replace(/^@/, "")}`
+  : "https://instagram.com/";
 
 export default function Follow() {
   return (
@@ -34,9 +38,15 @@ export default function Follow() {
               Follow Us
             </h2>
             <div className="mt-6">
-              <PillButton href="#instagram" variant="cream">
+              <a
+                href={instagramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--color-sand)] px-10 py-3 font-display text-sm uppercase tracking-[0.2em] text-[var(--color-iron)] transition-colors hover:bg-[var(--color-sand-deep)]"
+                aria-label="Follow Global Fork on Instagram (opens in new tab)"
+              >
                 Here
-              </PillButton>
+              </a>
             </div>
           </div>
         </Reveal>

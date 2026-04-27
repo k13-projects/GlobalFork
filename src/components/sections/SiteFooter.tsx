@@ -1,8 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ElementIconRow } from "../ElementIcon";
 import Reveal from "../motion/Reveal";
+import { siteConfig } from "@/lib/site-config";
+
+const LEGAL_LINKS = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Cookies", href: "/cookies" },
+  { label: "Accessibility", href: "/accessibility" },
+];
 
 export default function SiteFooter() {
+  const { emails } = siteConfig;
+
   return (
     <footer
       id="contact"
@@ -36,17 +47,17 @@ export default function SiteFooter() {
             </p>
             <ul className="space-y-3 font-display uppercase tracking-[0.14em]">
               <li>
-                <a className="hover:text-[var(--color-clay)]" href="mailto:hello@globalfork.example">
+                <a className="hover:text-[var(--color-clay)]" href={`mailto:${emails.general}`}>
                   General Inquiries
                 </a>
               </li>
               <li>
-                <a className="hover:text-[var(--color-clay)]" href="mailto:vendors@globalfork.example">
+                <a className="hover:text-[var(--color-clay)]" href={`mailto:${emails.vendors}`}>
                   Vendor Opportunities
                 </a>
               </li>
               <li>
-                <a className="hover:text-[var(--color-clay)]" href="mailto:careers@globalfork.example">
+                <a className="hover:text-[var(--color-clay)]" href={`mailto:${emails.careers}`}>
                   Careers
                 </a>
               </li>
@@ -55,9 +66,19 @@ export default function SiteFooter() {
         </Reveal>
       </div>
 
-      <div className="mx-auto mt-16 flex max-w-6xl items-center justify-between border-t border-[var(--color-iron)]/15 pt-6 text-xs uppercase tracking-[0.18em] text-[var(--color-iron)]/60">
-        <span>&copy; {new Date().getFullYear()} Global Fork</span>
-        <span>San Diego, CA</span>
+      <div className="mx-auto mt-16 flex max-w-6xl flex-col gap-4 border-t border-[var(--color-iron)]/15 pt-6 text-xs uppercase tracking-[0.18em] text-[var(--color-iron)]/75 md:flex-row md:items-center md:justify-between">
+        <span>&copy; {new Date().getFullYear()} Global Fork &middot; San Diego, CA</span>
+        <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2">
+          {LEGAL_LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="hover:text-[var(--color-clay)]"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );

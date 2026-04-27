@@ -1,30 +1,37 @@
 import type { MetadataRoute } from "next";
 import { VENDORS } from "@/data/vendors";
-
-const BASE = "https://globalfork.example";
+import { absoluteUrl } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    "",
-    "/about",
-    "/vendors",
-    "/bookings",
-    "/contact",
-  ].map((path) => ({
-    url: `${BASE}${path}`,
+    { path: "", priority: 1.0 },
+  ].map(({ path, priority }) => ({
+    url: absoluteUrl(path),
     lastModified,
     changeFrequency: "monthly" as const,
-    priority: path === "" ? 1.0 : 0.8,
+    priority,
+  }));
+
+  const legalRoutes: MetadataRoute.Sitemap = [
+    "/privacy",
+    "/terms",
+    "/cookies",
+    "/accessibility",
+  ].map((path) => ({
+    url: absoluteUrl(path),
+    lastModified,
+    changeFrequency: "yearly" as const,
+    priority: 0.3,
   }));
 
   const vendorRoutes: MetadataRoute.Sitemap = VENDORS.map((v) => ({
-    url: `${BASE}/vendors/${v.slug}`,
+    url: absoluteUrl(`/vendors/${v.slug}`),
     lastModified,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...vendorRoutes];
+  return [...staticRoutes, ...vendorRoutes, ...legalRoutes];
 }

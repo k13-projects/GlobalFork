@@ -16,7 +16,6 @@ import { VENDORS } from "@/data/vendors";
 export default function VendorGrid() {
   return (
     <section
-      id="vendors"
       aria-label="Our Vendors"
       className="relative overflow-hidden bg-[var(--color-clay)] px-6 pt-20 pb-28 text-[var(--color-sand)] md:hidden"
     >

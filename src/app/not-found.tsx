@@ -19,16 +19,16 @@ export default function NotFound() {
             <PillButton href="/" variant="spicy">
               Home
             </PillButton>
-            <PillButton href="/vendors" variant="clay">
+            <PillButton href="/#vendors" variant="clay">
               Our Vendors
             </PillButton>
-            <PillButton href="/contact" variant="ironOnSand">
+            <PillButton href="/#contact" variant="ironOnSand">
               Contact
             </PillButton>
           </div>
           <Link
             href="/"
-            className="mt-4 font-display text-xs uppercase tracking-[0.22em] text-[var(--color-iron)]/60 underline-offset-8 hover:underline"
+            className="mt-4 font-display text-xs uppercase tracking-[0.22em] text-[var(--color-iron)]/80 underline-offset-8 hover:underline"
           >
             ← Back to Global Fork
           </Link>

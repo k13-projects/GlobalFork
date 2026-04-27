@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import PageHeader from "@/components/PageHeader";
 import PillButton from "@/components/PillButton";
+import { siteConfig } from "@/lib/site-config";
 
 export default function GlobalError({
   error,
@@ -12,9 +13,28 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Report to monitoring once configured
+    // Local dev visibility. Production wiring (Sentry / Vercel) lands when
+    // the monitoring service is chosen — see DECISIONS_NEEDED §6.
     console.error("Route error:", error);
   }, [error]);
+
+  const supportHref = useMemo(() => {
+    const subject = encodeURIComponent(
+      `Site error report${error.digest ? ` · ${error.digest}` : ""}`,
+    );
+    const body = encodeURIComponent(
+      [
+        "Something went wrong on the Global Fork site.",
+        "",
+        `Page: ${typeof window !== "undefined" ? window.location.href : ""}`,
+        `Error id: ${error.digest ?? "(none)"}`,
+        "",
+        "What I was doing when it happened:",
+        "",
+      ].join("\n"),
+    );
+    return `mailto:${siteConfig.emails.general}?subject=${subject}&body=${body}`;
+  }, [error.digest]);
 
   return (
     <>
@@ -35,8 +55,14 @@ export default function GlobalError({
           <PillButton href="/" variant="ironOnSand">
             Back to Home
           </PillButton>
+          <a
+            href={supportHref}
+            className="font-display text-xs uppercase tracking-[0.2em] text-[var(--color-clay)] underline-offset-4 hover:underline"
+          >
+            Tell us what happened
+          </a>
           {error.digest && (
-            <p className="mt-4 text-xs text-[var(--color-iron)]/45">
+            <p className="mt-2 text-xs text-[var(--color-iron)]/70">
               error id · {error.digest}
             </p>
           )}

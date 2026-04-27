@@ -171,7 +171,7 @@ export default async function VendorPage({ params }: { params: Params }) {
 
       <section className="bg-[var(--color-sand)] px-8 py-20 text-center">
         <Reveal>
-          <PillButton href="/vendors" variant="spicy">
+          <PillButton href="/#vendors" variant="spicy">
             All Vendors
           </PillButton>
         </Reveal>

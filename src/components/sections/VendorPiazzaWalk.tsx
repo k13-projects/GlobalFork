@@ -144,10 +144,10 @@ export default function VendorPiazzaWalk() {
                 className="opacity-95"
               />
               <Link
-                href="/vendors"
+                href="/#bookings"
                 className="inline-flex items-center justify-center rounded-full bg-[var(--color-sand)] px-10 py-3 font-display text-sm uppercase tracking-[0.2em] text-[var(--color-iron)] transition-colors hover:bg-[var(--color-sand-deep)]"
               >
-                Meet them all
+                Book Your Event
               </Link>
             </li>
           </ul>

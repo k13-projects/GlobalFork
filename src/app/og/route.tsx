@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "@/lib/site-config";
 
 export const runtime = "edge";
 
@@ -7,12 +8,22 @@ const IRON = "#2f2c28";
 const HARVEY = "#b08539";
 const CLAY = "#a3443e";
 
+const HEX_RE = /^#[0-9A-Fa-f]{6}$/;
+const clamp = (s: string | null, max: number, fallback: string) =>
+  (s ?? fallback).slice(0, max);
+
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  const title = url.searchParams.get("title") ?? "Global Fork";
-  const eyebrow = url.searchParams.get("eyebrow") ?? "San Diego, CA";
-  const tagline = url.searchParams.get("tagline") ?? "A world of flavors. One place to gather.";
-  const tone = url.searchParams.get("tone") ?? IRON;
+  const title = clamp(url.searchParams.get("title"), 120, "Global Fork");
+  const eyebrow = clamp(url.searchParams.get("eyebrow"), 60, "San Diego, CA");
+  const tagline = clamp(
+    url.searchParams.get("tagline"),
+    200,
+    "A world of flavors. One place to gather.",
+  );
+  const toneParam = url.searchParams.get("tone");
+  const tone = toneParam && HEX_RE.test(toneParam) ? toneParam : IRON;
+  const footer = siteConfig.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   return new ImageResponse(
     (
@@ -91,7 +102,7 @@ export async function GET(req: Request) {
             textTransform: "uppercase",
           }}
         >
-          <span>globalfork.example</span>
+          <span>{footer}</span>
           <span style={{ color: CLAY, fontWeight: 700 }}>· GF ·</span>
         </div>
       </div>

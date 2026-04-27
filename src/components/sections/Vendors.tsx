@@ -12,9 +12,9 @@ import VendorGrid from "./VendorGrid";
  */
 export default function Vendors() {
   return (
-    <>
+    <div id="vendors">
       <VendorPiazzaWalk />
       <VendorGrid />
-    </>
+    </div>
   );
 }

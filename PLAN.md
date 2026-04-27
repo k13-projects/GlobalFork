@@ -2,7 +2,10 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-27 · **Current phase:** P5 — mobile nav polish (hamburger top-right, drawer keeps logo visible); ship-blockers still external · **Active branch:** `gf_apr27_v4`
+> **Last updated:** 2026-04-27 · **Current phase:** P6 — compliance & security hardening (legal pages, headers, 508/WCAG fixes) · **Active branch:** `gf_apr27_v4`
+>
+> **Companion docs:**
+> - [DECISIONS_NEEDED.md](DECISIONS_NEEDED.md) — items waiting on Kazimiro / Eren / counsel input. Always check here when the user says "what's next?".
 
 ---
 
@@ -70,16 +73,15 @@
 ## 3 · Information architecture
 
 ```
-/                      Home — full scroll experience (all sections above)
-/about                 About deep dive
-/vendors               Vendor grid
-/vendors/[slug]        Per-vendor detail
-/events                Calendar + upcoming
-/events/[slug]         Event detail
-/bookings              Form for 15+ guests
-/visit                 Map + hours
-/contact               General · Vendor · Careers tabs
+/                      Home — single scroll experience, all six brief sections
+                       (#about · #vendors · #events · #bookings · #visit · #contact)
+/vendors/[slug]        Per-vendor detail (only standalone route besides legal)
 ```
+
+Brief is one-page (see [GLOBAL FORK WEBSITE STUCTURE.pdf](assets/GLOBAL%20FORK%20WEBSITE%20STUCTURE.pdf)).
+Earlier P4 inner pages (`/about`, `/vendors`, `/bookings`, `/contact`) were a
+misread and have been removed; nav links are anchors now and `SmoothScroll`
+glides them in below the sticky header.
 
 ---
 
@@ -113,6 +115,7 @@ Deferred decisions (punt to when the need is real):
 | **P3 — Signature moments** | The "wow" layer | Hero gradient mesh / element orbit / vendor horizontal piazza walk / plaza panorama scrub / custom map |
 | **P4 — Inner pages + CMS** | Content-editable | Vendor detail pages, Events flow, Bookings form, CMS wired so Lorena can edit |
 | **P5 — Polish + ship** | Launch | Perf pass (LCP <2s, 60fps motion), a11y audit, SEO/OG, Eren review, prod deploy |
+| **P6 — Compliance & security hardening** *(active)* | Production-ready legal + security posture | Legal pages live (privacy/terms/cookies/accessibility), security headers + CSP enforced, 508/WCAG 2.1 AA fixes shipped, hosted form handler wired, Restaurant JSON-LD + real domain in env, monitoring connected |
 
 ---
 
@@ -192,19 +195,15 @@ Deferred decisions (punt to when the need is real):
 ## 6d · P4 checklist *(partial — pages shipped, CMS deferred)*
 
 **Shipped this phase:**
-- [x] Vendor data extracted to `src/data/vendors.ts` — single source for home + inner pages
-- [x] Footer lifted into root layout so every page gets it for free
-- [x] `PageHeader` primitive — Iron Black band with elements row, eyebrow, title, subtitle
-- [x] `/about` — extended copy (4,685 sqft venue / 10,000 sqft plaza), space facts panel, "what you'll find" grid, dual CTAs
-- [x] `/vendors` — full grid with cuisine + origin metadata, links to detail pages
+- [x] Vendor data extracted to `src/data/vendors.ts` — single source for home + vendor detail
+- [x] Footer lifted into root layout so every page gets it for free; footer also doubles as `#contact` anchor (LET'S CONNECT) per brief
+- [x] `PageHeader` primitive — used by legal/error pages
 - [x] `/vendors/[slug]` — six prerendered detail pages with hero in vendor's tone color, longform blurb, signature/cuisine/origin/IG aside, "more vendors" footer
-- [x] `/contact` — three-tab form (General · Vendor Opportunities · Careers), `motion`-driven tab indicator, mailto submit with structured subject + body
-- [x] `/bookings` — three-step form (Event → Date & size → About you) with progress indicator, occasion picker, motion transitions between steps, mailto submit
-- [x] Form input style added to `globals.css` (focus ring uses Clay)
-- [x] Nav routes converted: anchors → real routes (`/about`, `/vendors`, `/bookings`, `/contact`); `/#events` and `/#visit` for home-page sections that don't have dedicated pages yet
-- [x] Home About "Learn More" → `/about` · Home Bookings "Get in Touch" → `/bookings`
-- [x] Production build prerenders all 14 routes statically (incl. 6 SSG vendor pages)
-- [x] Smoke test: every route returns HTTP 200
+
+**Reverted (2026-04-27 — Lorena one-page brief re-read):**
+- [~] Inner pages `/about`, `/vendors` (index), `/bookings`, `/contact` were built then removed. Brief is single-scroll with six anchored sections; nav repointed to `/#about`, `/#vendors`, `/#events`, `/#bookings`, `/#visit`, `/#contact`.
+- Bookings/contact forms removed — Web3Forms (https://app.web3forms.com/) will be wired into the section CTAs in a later pass.
+- `/vendors/[slug]` retained — vendor detail is useful and harmless even on a one-page site.
 
 **Deferred (need external decisions or content):**
 - [ ] `/events` index + `/events/[slug]` — events data is mock; revisit when real calendar exists
@@ -236,6 +235,93 @@ Deferred decisions (punt to when the need is real):
 - [ ] Eren review pass — needs deploy URL
 - [ ] Production deploy — needs Vercel hookup + Eren signoff
 - [ ] Carry-overs from P3/P4: ~~piazza-walk~~ (shipped), plaza panorama, custom Mapbox, script SVG draw-on, hex lock from IDENTITY.pdf
+
+---
+
+## 6f · P6 checklist *(active — compliance & security hardening)*
+
+> Triggered by the pre-prod audit (2026-04-27). Audit overall score 72/100, blockers: no security headers, no privacy/terms, mailto-only forms, four 508/WCAG items, placeholder domain. Eren wants production-ready and lawsuit-resistant (Section 508).
+>
+> **Strategy:** ship as much as possible *independently* with placeholder content + env-driven config; everything that needs Eren/counsel input lives in [DECISIONS_NEEDED.md](DECISIONS_NEEDED.md). Each item below is self-contained — another session can pick up at any unchecked item without re-reading the audit.
+
+### P6.1 — Foundation (config + env)
+- [ ] `src/lib/site-config.ts` — single source for site URL, legal entity name, business address, phone, hours, support emails. Env-driven with safe defaults so build never breaks.
+- [ ] `.env.example` documenting all `NEXT_PUBLIC_*` vars (site URL, legal entity, emails) and server-side vars (form handler keys when ready).
+- [ ] `metadataBase` in `layout.tsx`, `BASE` in `sitemap.ts`, `robots.ts`, and OG footer string all read from `siteConfig.url`.
+
+### P6.2 — Security headers
+- [ ] `next.config.ts` exports `headers()` returning:
+      `Strict-Transport-Security` (max-age=31536000; includeSubDomains; preload),
+      `X-Frame-Options: DENY`,
+      `X-Content-Type-Options: nosniff`,
+      `Referrer-Policy: strict-origin-when-cross-origin`,
+      `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()`,
+      `Content-Security-Policy-Report-Only` (start in report-only for one week, then enforce). CSP allows `'self'`, `data:` images, font-src self, no inline scripts unless Next requires hashes.
+- [ ] After 1 week soak in report-only with no breakage, flip CSP to enforcing (decision tracked in DECISIONS_NEEDED §8).
+- [ ] `pnpm audit --prod` runs clean OR documented exception. Pin Next to a release that bundles patched postcss (≥ 8.5.10) when available.
+
+### P6.3 — Legal pages (independent)
+- [ ] `/privacy` — drafted boilerplate with TODO markers for legal entity, retention windows, processor list. Covers: data we collect (name/email/phone/event details via forms), why, how long, who we share with (email service when wired), CCPA + GDPR rights, contact for data requests.
+- [ ] `/terms` — drafted boilerplate with TODO markers for legal entity + governing jurisdiction. Covers: site usage, IP, third-party content (vendors), no-warranty, limitation of liability.
+- [ ] `/cookies` — declaration that **today** the site sets no cookies and uses no third-party trackers. Updated when analytics decision lands.
+- [ ] `/accessibility` — Section 508 + WCAG 2.1 AA conformance statement. Reports what we conform to, known gaps, and a contact for accessibility issues.
+- [ ] Footer: links to Privacy / Terms / Cookies / Accessibility added under the legal block.
+- [ ] Sitemap includes the four new legal pages.
+
+### P6.4 — 508 / WCAG 2.1 AA fixes (lawsuit-resistance)
+- [ ] **Tab keyboard nav** — `/contact` topic tabs respond to Left/Right (move focus + activate) and Home/End. WAI-ARIA APG tab pattern.
+- [ ] **Mobile menu focus trap** — when drawer opens, focus moves into menu; Tab cycles inside; Escape closes; focus returns to hamburger on close.
+- [ ] **Hamburger touch target** — bump from 40×40 to 44×44 (WCAG 2.5.5).
+- [ ] **Contrast bumps** — `text-[var(--color-iron)]/55` → `/70` across forms/error/footer where iron-on-sand currently fails 4.5:1.
+- [ ] **Broken anchor `href="#instagram"`** — replace with real Instagram URL (or remove until handle confirmed).
+- [ ] Form fields gain `aria-required="true"` for required inputs and explicit `htmlFor`/`id` pairing in `Field` components.
+- [ ] Form error feedback wired with `aria-invalid` + `role="alert"` summary on submit failures (post-handler swap).
+
+### P6.5 — Form pipeline (consent + safety; full server handler is P6.6)
+- [ ] Consent checkbox on Contact + Bookings forms ("I have read the Privacy Policy"), required to submit, links to `/privacy`.
+- [ ] Forms display retention notice ("We'll keep your inquiry for {N} months") inline.
+- [ ] `/og` route caps query params: `title`/`eyebrow`/`tagline` `.slice(0, 200)`, `tone` validated against `^#[0-9A-Fa-f]{6}$` regex.
+
+### P6.6 — Hosted form handler swap *(blocked on DECISIONS_NEEDED §2)*
+- [ ] Email service decision (Resend / Postmark / Formspree / etc.) recorded.
+- [ ] `POST /api/contact` and `POST /api/bookings` route handlers with: server-side validation, Turnstile/hCaptcha verify, IP rate limit (5/hr), honeypot, structured email to ops inbox, audit log.
+- [ ] Mailto fallback removed from forms.
+- [ ] CSRF protection (Next built-ins or token-in-cookie).
+
+### P6.7 — Error & monitoring
+- [ ] `app/global-error.tsx` for layout-level failures.
+- [ ] `error.tsx` adds a "contact support" link with the digest pre-filled.
+- [ ] Sentry / Vercel error monitoring wired *(blocked on DECISIONS_NEEDED §5)*.
+
+### P6.8 — SEO finishing
+- [ ] `Restaurant` / `LocalBusiness` JSON-LD in root layout reading from `siteConfig`.
+- [ ] Verify per-page metadata + OG renders against real domain post-launch.
+- [ ] Add `manifest.webmanifest` + `theme-color`.
+
+### P6.9 — Pre-launch QA
+- [ ] axe DevTools clean on every route.
+- [ ] Lighthouse a11y ≥ 95.
+- [ ] Manual screen-reader pass (NVDA + VoiceOver) on home + bookings.
+- [ ] Test forms in real email clients post-handler swap.
+- [ ] CSP enforcing with no console errors after 7-day report-only soak.
+
+### P6 progress log
+
+*(append-only — newest at bottom)*
+
+- **2026-04-27** — P6 plan committed; audit findings translated into nine numbered work groups. Started executing P6.1–P6.5 + P6.7 (independent items); P6.6 (form handler) and Sentry wiring blocked on DECISIONS_NEEDED.
+- **2026-04-27** — P6.1–P6.5, P6.7 (partial), P6.8 shipped in one pass:
+  - **Foundation:** `src/lib/site-config.ts` with env-driven URL / emails / business / legal / social. `.env.example` documents every var. `metadataBase`, sitemap, robots, OG footer all read from config.
+  - **Headers:** `next.config.ts` exports HSTS, X-Frame-Options DENY, X-Content-Type-Options, Referrer-Policy, locked-down Permissions-Policy, and CSP **in report-only mode** (flip via `CSP_ENFORCE = true` after a 7-day soak). `poweredByHeader: false`.
+  - **Legal pages:** `/privacy`, `/terms`, `/cookies`, `/accessibility` shipped as static server components, all reading entity / jurisdiction / retention / address from siteConfig. `prose-legal` styles added to globals.css. Footer gains legal nav.
+  - **JSON-LD:** Restaurant schema injected from layout, reading the same config (omits telephone if blank).
+  - **A11y / 508:** mobile menu now traps focus (Tab cycles in-drawer, Shift+Tab reverses), restores focus to trigger on close, hamburger bumped 40→44px. Contact tabs respond to ←/→/Home/End per WAI-ARIA APG. Broken `#instagram` href replaced with real outbound link via `siteConfig.social.instagram`. Form fields gained `aria-required` + explicit `htmlFor`/`id`. Required-field marker (`*`) added to labels. Contrast bumps across forms/error/footer (`/55` → `/70-/85`).
+  - **Forms:** Contact + Bookings now require a consent checkbox linking to `/privacy` before submit; bookings form discloses retention period inline.
+  - **Edge hardening:** `/og` caps `title`/`eyebrow`/`tagline` lengths, validates `tone` against `/^#[0-9A-Fa-f]{6}$/`. `robots.ts` disallows `/og` and `/api/`.
+  - **Errors:** `app/global-error.tsx` added (style-free fallback if root layout itself fails). `error.tsx` adds a "Tell us what happened" mailto with the digest pre-filled.
+  - **Sitemap:** four legal routes added; everything goes through `absoluteUrl()`.
+  - **Build:** `pnpm build` green — 20 prerendered routes (was 16) + 1 dynamic edge `/og`. ESLint surfaces the same one preexisting `SmoothScroll` `react-hooks/set-state-in-effect` (P5 leftover, separate scope).
+  - **Still blocked:** real domain (env), real emails (env), Instagram handle (env), legal entity (env), email service decision, Sentry DSN — all parked in DECISIONS_NEEDED.md.
 
 ---
 
@@ -282,6 +368,7 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-27 | Nav layout follows Lorena's vision: small badge above a single full-width divider, links capped to `max-w-6xl` and `justify-between` | Earlier "drop badge through divider" iterations clashed with how the original mockup reads — the badge sits cleanly above, divider is a continuous line, links cluster toward the centre rather than at the page edges |
 | 2026-04-27 | Final nav: single `items-end` flex row with `flex-1` divider segments on the **outside** of the link/logo cluster | Logo defines row height and "cuts" the divider visually; link groups flank the logo tightly while the dividers fill the page-edge → links gap — matches Lorena's reference exactly |
 | 2026-04-27 | Mobile hamburger floats `absolute right-3 top-3`; drawer starts at `top-[108px]` instead of `inset-0` | Logo + divider stay visible while menu is open. Hamburger morphs into the X close affordance, so the drawer's own close button was removed to avoid two close UIs |
+| 2026-04-27 | **Production domain locked: `globalforkfh.com`** | Eren confirmed. Wired as the new fallback in `src/lib/site-config.ts` so builds reflect production reality even without `NEXT_PUBLIC_SITE_URL` set; Vercel env can still override per-environment (preview/staging). Resolves DECISIONS_NEEDED §1. |
 
 ---
 
