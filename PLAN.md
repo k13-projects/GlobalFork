@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-27 · **Current phase:** P5 — placeholder photography + Lenis resize fix; ship-blockers still external · **Active branch:** `gf_apr27_v1`
+> **Last updated:** 2026-04-27 · **Current phase:** P5 — nav rework toward Lorena's vision; ship-blockers still external · **Active branch:** `gf_apr27_v2`
 
 ---
 
@@ -278,6 +278,8 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-26 | Placeholder photography harvested from brief PDF (`pdfimages -all` + Pillow slicing) | Brief is canonical; faster + higher fidelity than screenshotting or stock. Used for hero (bar render), bookings (dining hall), visit (storefront), and 6 vendor card covers |
 | 2026-04-26 | Vendor cover photos rendered with `mix-blend-luminosity` over `tone` | Brand color still bleeds through, signaling "placeholder" rather than pretending these are vendor-specific shots |
 | 2026-04-27 | SmoothScroll observes `document.body` with ResizeObserver and re-runs `lenis.resize()` on `window load` | Lenis caches scrollHeight at init; lazy images settling afterwards (especially the new placeholder photos) made the footer unreachable on first load. Reload masked it because cached assets settled before init |
+| 2026-04-27 | Trimmed `badge.png` from 1800×1800 (50% transparent padding) down to 902×902 in place | Visible badge was rendering at half its declared container size, so any nav sizing fought the image. Cropping decouples sizing from the asset's bake-in padding — `BADGE_DESKTOP=140` now means a 140px visible badge |
+| 2026-04-27 | Nav layout follows Lorena's vision: small badge above a single full-width divider, links capped to `max-w-6xl` and `justify-between` | Earlier "drop badge through divider" iterations clashed with how the original mockup reads — the badge sits cleanly above, divider is a continuous line, links cluster toward the centre rather than at the page edges |
 
 ---
 
