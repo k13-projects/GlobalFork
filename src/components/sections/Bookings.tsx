@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PillButton from "../PillButton";
 import PatternOverlay from "../PatternOverlay";
 import DiagonalCut from "../DiagonalCut";
@@ -8,8 +9,21 @@ export default function Bookings() {
     <section
       id="bookings"
       aria-label="Bookings"
-      className="relative overflow-hidden bg-[var(--color-harvey)] px-8 pt-24 pb-36 text-[var(--color-sand)]"
+      className="relative overflow-hidden bg-[var(--color-harvey)] text-[var(--color-sand)]"
     >
+      <Reveal amount={0.3}>
+        <div className="relative h-[42vh] min-h-[280px] w-full overflow-hidden">
+          <Image
+            src="/photos/event-dining.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      </Reveal>
+
+      <div className="relative px-8 pt-20 pb-36">
       <PatternOverlay name="sun-line" size={520} opacity={0.14} />
 
       <div className="relative mx-auto max-w-4xl">
@@ -28,7 +42,7 @@ export default function Bookings() {
         </Reveal>
         <Reveal delay={0.3} amount={0.4}>
           <div className="mt-10">
-            <PillButton href="#contact" variant="cream">
+            <PillButton href="/#contact" variant="cream">
               Get in Touch
             </PillButton>
           </div>
@@ -36,6 +50,7 @@ export default function Bookings() {
       </div>
 
       <DiagonalCut to="var(--color-iron)" height={100} flip />
+      </div>
     </section>
   );
 }

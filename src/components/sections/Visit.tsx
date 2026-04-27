@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PillButton from "../PillButton";
 import ScriptAccent from "../ScriptAccent";
 import Reveal from "../motion/Reveal";
@@ -59,7 +60,16 @@ export default function Visit() {
         </div>
 
         <Reveal direction="right" delay={0.35} amount={0.3}>
-          <div className="relative flex flex-col items-end justify-end pb-2 md:items-end">
+          <div className="relative flex flex-col items-end justify-end gap-8 pb-2 md:items-end">
+            <div className="relative aspect-[5/4] w-full overflow-hidden rounded-3xl shadow-2xl">
+              <Image
+                src="/photos/storefront.jpg"
+                alt="Global Fork storefront on West Date Street, San Diego"
+                fill
+                sizes="(min-width:768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
             <ScriptAccent
               name="culture-and-flavor"
               width={420}
