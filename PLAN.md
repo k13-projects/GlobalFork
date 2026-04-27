@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-26 · **Current phase:** P5 — placeholder photography harvested from brief; ship-blockers still external · **Active branch:** `gf_apr26_v3`
+> **Last updated:** 2026-04-27 · **Current phase:** P5 — placeholder photography + Lenis resize fix; ship-blockers still external · **Active branch:** `gf_apr27_v1`
 
 ---
 
@@ -277,6 +277,7 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-26 | Piazza walk replaces grid on desktop, not supplements | Grid in addition to walk would create two views of the same content; pick one per viewport |
 | 2026-04-26 | Placeholder photography harvested from brief PDF (`pdfimages -all` + Pillow slicing) | Brief is canonical; faster + higher fidelity than screenshotting or stock. Used for hero (bar render), bookings (dining hall), visit (storefront), and 6 vendor card covers |
 | 2026-04-26 | Vendor cover photos rendered with `mix-blend-luminosity` over `tone` | Brand color still bleeds through, signaling "placeholder" rather than pretending these are vendor-specific shots |
+| 2026-04-27 | SmoothScroll observes `document.body` with ResizeObserver and re-runs `lenis.resize()` on `window load` | Lenis caches scrollHeight at init; lazy images settling afterwards (especially the new placeholder photos) made the footer unreachable on first load. Reload masked it because cached assets settled before init |
 
 ---
 

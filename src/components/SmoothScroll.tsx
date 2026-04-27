@@ -44,6 +44,15 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     };
     rafId = requestAnimationFrame(raf);
 
+    // Lenis caches scroll height at init. When lazy images / fonts / dynamic
+    // content land afterwards the page grows but Lenis still caps scroll to
+    // the old height — which is why footer is unreachable on first load and
+    // fine after a reload (cached assets settle before init).
+    const ro = new ResizeObserver(() => lenis.resize());
+    ro.observe(document.body);
+    const onLoad = () => lenis.resize();
+    window.addEventListener("load", onLoad);
+
     // Intercept in-page anchor clicks for smooth scroll
     const onAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
@@ -61,6 +70,8 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
     return () => {
       cancelAnimationFrame(rafId);
+      ro.disconnect();
+      window.removeEventListener("load", onLoad);
       document.removeEventListener("click", onAnchorClick);
       lenis.destroy();
       lenisRef.current = null;
