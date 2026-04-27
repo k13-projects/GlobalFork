@@ -74,33 +74,34 @@ export default function SiteNav() {
           />
         </div>
 
-        {/* Mobile: divider | hamburger · logo · spacer | divider */}
-        <div className="flex items-end gap-3 px-4 pb-3 pt-3 md:hidden">
-          <div
-            aria-hidden
-            className="h-px flex-1 bg-[var(--color-iron)]/15"
-            style={{ marginBottom: DIVIDER_FROM_BOTTOM_MOBILE }}
-          />
-
-          <div className="pb-2">
+        {/* Mobile: hamburger floats top-right; logo stays centred between two
+            symmetric divider segments so the line + badge layout is untouched */}
+        <div className="relative md:hidden">
+          <div className="absolute right-3 top-3 z-10">
             <MobileMenu />
           </div>
 
-          <Link
-            href="/"
-            aria-label="Global Fork — Home"
-            className="shrink-0 text-[color:var(--color-iron)]"
-          >
-            <LogoBadge size={BADGE_MOBILE} />
-          </Link>
+          <div className="flex items-end gap-3 px-4 pb-3 pt-3">
+            <div
+              aria-hidden
+              className="h-px flex-1 bg-[var(--color-iron)]/15"
+              style={{ marginBottom: DIVIDER_FROM_BOTTOM_MOBILE }}
+            />
 
-          <div className="h-10 w-10 shrink-0 pb-2" aria-hidden />
+            <Link
+              href="/"
+              aria-label="Global Fork — Home"
+              className="shrink-0 text-[color:var(--color-iron)]"
+            >
+              <LogoBadge size={BADGE_MOBILE} />
+            </Link>
 
-          <div
-            aria-hidden
-            className="h-px flex-1 bg-[var(--color-iron)]/15"
-            style={{ marginBottom: DIVIDER_FROM_BOTTOM_MOBILE }}
-          />
+            <div
+              aria-hidden
+              className="h-px flex-1 bg-[var(--color-iron)]/15"
+              style={{ marginBottom: DIVIDER_FROM_BOTTOM_MOBILE }}
+            />
+          </div>
         </div>
       </header>
     </NavCondense>

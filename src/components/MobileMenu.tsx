@@ -67,21 +67,12 @@ export default function MobileMenu() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 flex flex-col bg-[var(--color-iron)] text-[var(--color-sand)] md:hidden"
+            // Starts below the sticky nav so the logo + divider stay visible
+            // while the menu is open. The hamburger animates to an X and acts
+            // as the close affordance — no second close button needed.
+            className="fixed inset-x-0 bottom-0 top-[108px] z-30 flex flex-col bg-[var(--color-iron)] text-[var(--color-sand)] md:hidden"
           >
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-              className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center"
-            >
-              <span className="sr-only">Close</span>
-              <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="1.4">
-                <path d="M5 5l16 16M21 5L5 21" />
-              </svg>
-            </button>
-
-            <nav className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center gap-8 px-8">
+            <nav className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-start gap-6 px-8 pt-8">
               {ITEMS.map((item, i) => (
                 <motion.div
                   key={item.href}

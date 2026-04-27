@@ -2,7 +2,7 @@
 
 > **This document is the source of truth for project direction.** Updated before every commit so any tab / collaborator can pick up without context loss.
 >
-> **Last updated:** 2026-04-27 · **Current phase:** P5 — nav rework toward Lorena's vision; ship-blockers still external · **Active branch:** `gf_apr27_v3`
+> **Last updated:** 2026-04-27 · **Current phase:** P5 — mobile nav polish (hamburger top-right, drawer keeps logo visible); ship-blockers still external · **Active branch:** `gf_apr27_v4`
 
 ---
 
@@ -281,6 +281,7 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-27 | Trimmed `badge.png` from 1800×1800 (50% transparent padding) down to 902×902 in place | Visible badge was rendering at half its declared container size, so any nav sizing fought the image. Cropping decouples sizing from the asset's bake-in padding — `BADGE_DESKTOP=140` now means a 140px visible badge |
 | 2026-04-27 | Nav layout follows Lorena's vision: small badge above a single full-width divider, links capped to `max-w-6xl` and `justify-between` | Earlier "drop badge through divider" iterations clashed with how the original mockup reads — the badge sits cleanly above, divider is a continuous line, links cluster toward the centre rather than at the page edges |
 | 2026-04-27 | Final nav: single `items-end` flex row with `flex-1` divider segments on the **outside** of the link/logo cluster | Logo defines row height and "cuts" the divider visually; link groups flank the logo tightly while the dividers fill the page-edge → links gap — matches Lorena's reference exactly |
+| 2026-04-27 | Mobile hamburger floats `absolute right-3 top-3`; drawer starts at `top-[108px]` instead of `inset-0` | Logo + divider stay visible while menu is open. Hamburger morphs into the X close affordance, so the drawer's own close button was removed to avoid two close UIs |
 
 ---
 
