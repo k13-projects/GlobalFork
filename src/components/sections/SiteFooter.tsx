@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ElementIconRow } from "../ElementIcon";
 import Reveal from "../motion/Reveal";
 import { siteConfig } from "@/lib/site-config";
 
@@ -23,7 +22,6 @@ export default function SiteFooter() {
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 md:grid-cols-2">
         <Reveal direction="right" amount={0.3}>
           <div className="flex flex-col items-center gap-4 md:items-start">
-            <ElementIconRow size={32} className="gap-3" />
             <Image
               src="/brand/logos/lockup.png"
               alt="Global Fork — San Diego, CA"
@@ -59,6 +57,31 @@ export default function SiteFooter() {
               <li>
                 <a className="hover:text-[var(--color-clay)]" href={`mailto:${emails.careers}`}>
                   Careers
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-iron)]/30 text-[var(--color-iron)] transition-colors hover:border-[var(--color-clay)] hover:text-[var(--color-clay)]"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="h-5 w-5"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
                 </a>
               </li>
             </ul>

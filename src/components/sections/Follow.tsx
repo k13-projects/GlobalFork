@@ -14,23 +14,6 @@ export default function Follow() {
       aria-label="Follow us"
       className="relative overflow-hidden bg-[var(--color-clay)] px-8 pt-20 pb-32 text-[var(--color-sand)]"
     >
-      <Reveal amount={0.2}>
-        <div className="relative mx-auto mb-16 h-72 max-w-6xl overflow-hidden rounded-sm bg-[var(--color-iron-soft)]">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(120deg, rgba(79,95,59,0.7) 0%, rgba(47,44,40,0.6) 50%, rgba(176,133,57,0.55) 100%)",
-            }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <p className="font-display text-3xl uppercase tracking-[0.3em] text-[var(--color-sand)]/85 md:text-4xl">
-              Global Fork
-            </p>
-          </div>
-        </div>
-      </Reveal>
-
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-[1fr_2fr]">
         <Reveal direction="right" amount={0.4}>
           <div>
