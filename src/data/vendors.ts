@@ -9,8 +9,7 @@ export type Vendor = {
   origin: string;
   /** Placeholder hue from the palette; used as the base layer behind cover. */
   tone: string;
-  /** Placeholder cover photo from the brief — generic food, not vendor-specific.
-   *  Swap to real vendor photography when delivered. */
+  /** Real vendor cover photo (supplied by the vendors, June 2026). */
   cover?: string;
 };
 
@@ -27,7 +26,7 @@ export const VENDORS: Vendor[] = [
     longBlurb:
       "MOTO Pizza built its reputation in Seattle by refusing to pick a lane. Detroit-style edges, New York foldability, Roman al taglio, and bright Filipino flavor crossovers share a menu that earns them the name “odd pizza.” Global Fork is their first out-of-state outpost — a chance to see what happens when this restless creativity meets a San Diego plaza.",
     tone: "var(--color-clay-deep)",
-    cover: "/photos/vendors/cell-2.jpg",
+    cover: "/photos/vendors/moto-pizza.jpg",
   },
   {
     slug: "cosmos-burger",
@@ -41,7 +40,7 @@ export const VENDORS: Vendor[] = [
     longBlurb:
       "Cosmos Burger is built around a single principle: bold flavor combinations done with serious ingredients. The Spicy Jam Burger and Monkey Fries are the headliners, but every plate gets the same care. Premium, unfussy, and confident — exactly the kind of food this plaza is here to gather around.",
     tone: "var(--color-spicy)",
-    cover: "/photos/vendors/cell-1.jpg",
+    cover: "/photos/vendors/cosmos-burger.jpg",
   },
   {
     slug: "la-vida",
@@ -55,7 +54,7 @@ export const VENDORS: Vendor[] = [
     longBlurb:
       "La Vida was born in San Diego on the belief that eating well shouldn't feel like an obligation. Smoothies, salads, wraps, bowls — fresh ingredients, generous portions, and flavor that makes the healthy choice feel like the obvious one. Open early, open late, on the move with you.",
     tone: "var(--color-grove)",
-    cover: "/photos/vendors/cell-5.jpg",
+    cover: "/photos/vendors/la-vida.jpg",
   },
   {
     slug: "lobster-lab",
@@ -69,7 +68,7 @@ export const VENDORS: Vendor[] = [
     longBlurb:
       "Lobster Lab took the lobster roll seriously enough that Yelp named theirs the #1 in San Diego in 2024. The Lobster Grilled Cheese is the move that turned heads first — buttery, generous, and worth the drive from Carlsbad. They're bringing that same obsession with the basics to the plaza.",
     tone: "var(--color-tide)",
-    cover: "/photos/vendors/cell-7.jpg",
+    cover: "/photos/vendors/lobster-lab.jpg",
   },
   {
     slug: "handels-ice-cream",
@@ -83,11 +82,11 @@ export const VENDORS: Vendor[] = [
     longBlurb:
       "Handel's Ice Cream is the kind of place where the recipe hasn't changed because it doesn't need to. Handcrafted, fresh-made daily, and built on flavors that earn their permanent residency on the menu. The end-of-meal handshake — and reason kids drag their parents back across the plaza.",
     tone: "var(--color-misty)",
-    cover: "/photos/vendors/cell-8.jpg",
+    cover: "/photos/vendors/handels-ice-cream.jpg",
   },
   {
-    slug: "thai-style-kitchen",
-    name: "Thai Style Kitchen",
+    slug: "prik-ki-nu-thai-cuisine",
+    name: "Prik Ki Nū Thai Cuisine",
     cuisine: "Thai",
     origin: "Tradition",
     handle: "@t.s.k_thaistylekitchen",
@@ -95,9 +94,9 @@ export const VENDORS: Vendor[] = [
     blurb:
       "Authentic Thai flavors in a vibrant kitchen — fresh ingredients, bold recipes, warm everyday dining.",
     longBlurb:
-      "Thai Style Kitchen runs on fresh ingredients and bold, unmuddled recipes. Tradition without nostalgia — food that's been refined enough to feel everyday but never simplified into something it isn't. Vibrant, warm, and the section of the menu you'll keep coming back to.",
+      "Prik Ki Nū Thai Cuisine runs on fresh ingredients and bold, unmuddled recipes. Tradition without nostalgia — food that's been refined enough to feel everyday but never simplified into something it isn't. Vibrant, warm, and the section of the menu you'll keep coming back to.",
     tone: "var(--color-harvey)",
-    cover: "/photos/vendors/cell-6.jpg",
+    cover: "/photos/vendors/prik-ki-nu-thai.jpg",
   },
 ];
 

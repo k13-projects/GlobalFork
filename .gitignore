@@ -51,5 +51,10 @@ logs
 # Testing
 coverage/
 
-# Keep brand assets tracked but not the macOS junk inside
-ASSETS/**/.DS_Store
+# Source/original asset drops — not served by the site (the web-ready copies
+# live in public/). Kept out of the repo to avoid bloat.
+ASSETS/
+.gstack/
+
+# Local Claude Code tooling/settings
+.claude/

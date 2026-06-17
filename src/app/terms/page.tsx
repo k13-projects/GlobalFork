@@ -88,7 +88,7 @@ export default function TermsPage() {
             <p>
               Vendor names, logos, and marks shown on the Site (MOTO Pizza,
               Cosmos Burger, La Vida, Lobster Lab, Handel&rsquo;s Ice Cream,
-              Thai Style Kitchen, and any others) are the property of their
+              Prik Ki N&#363; Thai Cuisine, and any others) are the property of their
               respective owners and are used to identify the vendors operating
               within the Global Fork venue.
             </p>

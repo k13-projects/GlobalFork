@@ -206,10 +206,11 @@ Deferred decisions (punt to when the need is real):
 - `/vendors/[slug]` retained — vendor detail is useful and harmless even on a one-page site.
 
 **Deferred (need external decisions or content):**
-- [ ] `/events` index + `/events/[slug]` — events data is mock; revisit when real calendar exists
+- [x] Events section wired to a live Google Sheet (published-CSV, client-side fetch, mirrors the Miramar setup — see `src/lib/events.ts`). Lorena edits the sheet; site updates with no rebuild. Falls back to hardcoded list on fetch failure.
+- [ ] `/events` index + `/events/[slug]` — homepage Events section is now live-data; dedicated pages still deferred until a richer calendar exists
 - [ ] `/visit` extended page — homepage Visit section sufficient until parking/directions content is finalized
-- [ ] CMS choice (Sanity vs Payload) — blocked on who owns Events/Vendors content
-- [ ] Real photography swap (vendors + hero render) — blocked on Lorena delivery
+- [ ] CMS choice (Sanity vs Payload) — Events now self-served via Lorena's Google Sheet; CMS only needed if Vendors/other content goes editable
+- [x] Real photography swap (vendors + hero/dining) — done 2026-06-17 from Lorena's delivery
 - [ ] Hosted form handler — current mailto flow is functional but not analytics-friendly
 - [ ] P3 deferred items still pending: piazza-walk, plaza panorama, custom Mapbox, script SVG draw-on, hex lock, Vercel preview hookup
 
@@ -356,6 +357,8 @@ Deferred decisions (punt to when the need is real):
 | 2026-04-25 | Skipped /events and /visit dedicated pages | Events data is mock; Visit section on home covers the hours+address brief. Revisit when real content is ready |
 | 2026-04-25 | OG route as edge runtime + dynamic | Edge handles many concurrent requests cheaply; OG params let one route serve every page's image without one-off SVGs |
 | 2026-04-25 | Metadata for client-component routes lives in sibling `layout.tsx` | Next requires server components for metadata; layout files are the cleanest split |
+| 2026-06-17 | Events wired to live Google Sheet (published-CSV, client-side fetch) | Mirrors the Miramar sister-site setup. Lorena edits the sheet directly; site updates with no rebuild/redeploy — exactly what she asked for. Client-side keeps it working on a static export; falls back to hardcoded events on fetch failure |
+| 2026-06-17 | Real vendor + hero/dining photos swapped in, slug-named in `public/photos/` | Lorena delivered final imagery; old generic `cell-*.jpg` placeholders removed. "Thai Style" renamed to "Prik Ki Nū Thai Cuisine" (name, slug, terms page) |
 | 2026-04-25 | Skip-to-content + visible focus ring globally | Accessibility floor — minimal but real; deeper audit waits for a real device + screen reader pass |
 | 2026-04-25 | not-found and error boundaries are full branded pages, not raw text | The 404/500 still represents the brand; cheap to do, expensive to skip |
 | 2026-04-26 | Piazza-walk + grid both render to DOM, CSS picks viewport | Avoids hydration flash + matchMedia race; cost is small (6 vendor entries duplicated); benefit is deterministic SSR |
