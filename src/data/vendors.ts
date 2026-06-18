@@ -11,6 +11,10 @@ export type Vendor = {
   tone: string;
   /** Real vendor cover photo (supplied by the vendors, June 2026). */
   cover?: string;
+  /** Tailwind object-position utility for the cover (default centered). Use
+   *  e.g. "object-bottom" when the important part of the photo (a logo) sits at
+   *  an edge and should survive the object-cover crop. */
+  coverPosition?: string;
 };
 
 export const VENDORS: Vendor[] = [
@@ -27,6 +31,8 @@ export const VENDORS: Vendor[] = [
       "MOTO Pizza built its reputation in Seattle by refusing to pick a lane. Detroit-style edges, New York foldability, Roman al taglio, and bright Filipino flavor crossovers share a menu that earns them the name “odd pizza.” Global Fork is their first out-of-state outpost — a chance to see what happens when this restless creativity meets a San Diego plaza.",
     tone: "var(--color-clay-deep)",
     cover: "/photos/vendors/moto-pizza.jpg",
+    // Logo sits at the bottom of the photo — anchor to bottom, crop from top.
+    coverPosition: "object-bottom",
   },
   {
     slug: "cosmos-burger",
@@ -41,6 +47,10 @@ export const VENDORS: Vendor[] = [
       "Cosmos Burger is built around a single principle: bold flavor combinations done with serious ingredients. The Spicy Jam Burger and Monkey Fries are the headliners, but every plate gets the same care. Premium, unfussy, and confident — exactly the kind of food this plaza is here to gather around.",
     tone: "var(--color-spicy)",
     cover: "/photos/vendors/cosmos-burger.jpg",
+    // Cover is a baked 5:4 crop (exact fit in the grid). In the wider 16:9 modal
+    // it crops top/bottom — anchor to bottom so the board + bun bases survive and
+    // the crop comes off the ceiling instead.
+    coverPosition: "object-bottom",
   },
   {
     slug: "la-vida",

@@ -65,7 +65,7 @@ export default function Vendors() {
                     alt=""
                     fill
                     sizes="(min-width:768px) 33vw, (min-width:640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className={`object-cover transition-transform duration-700 group-hover:scale-105 ${v.coverPosition ?? ""}`}
                   />
                 )}
                 {/* Hover scrim — darkens cover so the name reads cleanly */}
@@ -208,7 +208,7 @@ function VendorModal({
               alt=""
               fill
               sizes="(min-width:768px) 768px, 100vw"
-              className="object-cover"
+              className={`object-cover ${vendor.coverPosition ?? ""}`}
             />
           )}
           <button
