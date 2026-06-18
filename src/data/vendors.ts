@@ -11,6 +11,10 @@ export type Vendor = {
   tone: string;
   /** Real vendor cover photo (supplied by the vendors, June 2026). */
   cover?: string;
+  /** Tailwind object-position utility for the cover (default centered). Use
+   *  e.g. "object-bottom" when the important part of the photo (a logo) sits at
+   *  an edge and should survive the object-cover crop. */
+  coverPosition?: string;
 };
 
 export const VENDORS: Vendor[] = [
@@ -27,6 +31,8 @@ export const VENDORS: Vendor[] = [
       "MOTO Pizza built its reputation in Seattle by refusing to pick a lane. Detroit-style edges, New York foldability, Roman al taglio, and bright Filipino flavor crossovers share a menu that earns them the name “odd pizza.” Global Fork is their first out-of-state outpost — a chance to see what happens when this restless creativity meets a San Diego plaza.",
     tone: "var(--color-clay-deep)",
     cover: "/photos/vendors/moto-pizza.jpg",
+    // Logo sits at the bottom of the photo — anchor to bottom, crop from top.
+    coverPosition: "object-bottom",
   },
   {
     slug: "cosmos-burger",
