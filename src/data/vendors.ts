@@ -47,6 +47,10 @@ export const VENDORS: Vendor[] = [
       "Cosmos Burger is built around a single principle: bold flavor combinations done with serious ingredients. The Spicy Jam Burger and Monkey Fries are the headliners, but every plate gets the same care. Premium, unfussy, and confident — exactly the kind of food this plaza is here to gather around.",
     tone: "var(--color-spicy)",
     cover: "/photos/vendors/cosmos-burger.jpg",
+    // Cover is a baked 5:4 crop (exact fit in the grid). In the wider 16:9 modal
+    // it crops top/bottom — anchor to bottom so the board + bun bases survive and
+    // the crop comes off the ceiling instead.
+    coverPosition: "object-bottom",
   },
   {
     slug: "la-vida",
