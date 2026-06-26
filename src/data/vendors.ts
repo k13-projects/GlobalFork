@@ -15,6 +15,10 @@ export type Vendor = {
    *  e.g. "object-bottom" when the important part of the photo (a logo) sits at
    *  an edge and should survive the object-cover crop. */
   coverPosition?: string;
+  /** Optional wide (16:9) cover used by the detail modal when the main `cover`
+   *  would crop badly there (e.g. a tall subject in a square photo). Falls back
+   *  to `cover`. */
+  coverWide?: string;
 };
 
 export const VENDORS: Vendor[] = [
@@ -93,6 +97,9 @@ export const VENDORS: Vendor[] = [
       "Handel's Ice Cream is the kind of place where the recipe hasn't changed because it doesn't need to. Handcrafted, fresh-made daily, and built on flavors that earn their permanent residency on the menu. The end-of-meal handshake — and reason kids drag their parents back across the plaza.",
     tone: "var(--color-misty)",
     cover: "/photos/vendors/handels-ice-cream.jpg",
+    // Square shot crops to a zoomed slice in the 16:9 modal — use a side-extended
+    // wide version there so the whole cone shows.
+    coverWide: "/photos/vendors/handels-ice-cream-wide.jpg",
   },
   {
     slug: "prik-ki-nu-thai-cuisine",
