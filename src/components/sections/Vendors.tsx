@@ -202,13 +202,13 @@ function VendorModal({
           className="relative aspect-[16/9] w-full overflow-hidden"
           style={{ background: vendor.tone }}
         >
-          {vendor.cover && (
+          {(vendor.coverWide ?? vendor.cover) && (
             <Image
-              src={vendor.cover}
+              src={vendor.coverWide ?? vendor.cover!}
               alt=""
               fill
               sizes="(min-width:768px) 768px, 100vw"
-              className={`object-cover ${vendor.coverPosition ?? ""}`}
+              className={`object-cover ${vendor.coverWide ? "" : (vendor.coverPosition ?? "")}`}
             />
           )}
           <button
