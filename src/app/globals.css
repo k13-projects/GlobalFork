@@ -111,6 +111,23 @@ body {
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-clay) 18%, transparent);
 }
 
+/* Opening-day hero announcement — sunrise motif (see HeroOpening.tsx) */
+@keyframes gf-open-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes gf-open-breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+@keyframes gf-open-glow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.06); }
+}
+.gf-open-sun   { animation: gf-open-spin 28s linear infinite; transform-origin: center; }
+.gf-open-rule  { animation: gf-open-breathe 3.4s ease-in-out infinite; }
+.gf-open-rule--2 { animation-delay: 0.4s; }
+.gf-open-halo  { animation: gf-open-glow 4.2s ease-in-out infinite; }
+
 /* Honor user motion preference globally */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
