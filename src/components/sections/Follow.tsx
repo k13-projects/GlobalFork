@@ -1,7 +1,10 @@
+import BeholdWidget from "../BeholdWidget";
 import DiagonalCut from "../DiagonalCut";
 import Reveal from "../motion/Reveal";
 import { StaggerGroup, StaggerItem } from "../motion/Stagger";
 import { siteConfig } from "@/lib/site-config";
+
+const beholdFeedId = siteConfig.social.beholdFeedId;
 
 const instagramHref = siteConfig.social.instagram
   ? `https://instagram.com/${siteConfig.social.instagram.replace(/^@/, "")}`
@@ -34,20 +37,26 @@ export default function Follow() {
           </div>
         </Reveal>
 
-        <StaggerGroup
-          as="ul"
-          stagger={0.06}
-          amount={0.2}
-          className="grid grid-cols-3 gap-4"
-        >
-          {Array.from({ length: 6 }).map((_, i) => (
-            <StaggerItem
-              key={i}
-              as="li"
-              className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-sky-200 via-sky-100 to-emerald-200/80"
-            />
-          ))}
-        </StaggerGroup>
+        {beholdFeedId ? (
+          <Reveal direction="left" amount={0.2}>
+            <BeholdWidget feedId={beholdFeedId} />
+          </Reveal>
+        ) : (
+          <StaggerGroup
+            as="ul"
+            stagger={0.06}
+            amount={0.2}
+            className="grid grid-cols-3 gap-4"
+          >
+            {Array.from({ length: 6 }).map((_, i) => (
+              <StaggerItem
+                key={i}
+                as="li"
+                className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-sky-200 via-sky-100 to-emerald-200/80"
+              />
+            ))}
+          </StaggerGroup>
+        )}
       </div>
 
       <DiagonalCut to="var(--color-sand)" height={80} />

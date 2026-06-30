@@ -45,7 +45,7 @@ export default function Visit() {
                 Opening hours
               </p>
               <p className="mt-2 text-base text-[var(--color-sand)]/85">
-                Monday to Friday from 9 am to 9 pm
+                Monday to Sunday from 11 am to 9 pm
               </p>
             </div>
           </Reveal>

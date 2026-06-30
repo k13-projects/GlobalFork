@@ -24,7 +24,7 @@ export const siteConfig = {
 
   /** Inboxes that receive form submissions / public correspondence. */
   emails: {
-    general: env("NEXT_PUBLIC_EMAIL_GENERAL", "hello@globalfork.example"),
+    general: env("NEXT_PUBLIC_EMAIL_GENERAL", "info@globalforkfh.com"),
     vendors: env("NEXT_PUBLIC_EMAIL_VENDORS", "vendors@globalfork.example"),
     careers: env("NEXT_PUBLIC_EMAIL_CAREERS", "careers@globalfork.example"),
     bookings: env("NEXT_PUBLIC_EMAIL_BOOKINGS", "bookings@globalfork.example"),
@@ -56,7 +56,7 @@ export const siteConfig = {
           "Saturday",
           "Sunday",
         ],
-        opens: "09:00",
+        opens: "11:00",
         closes: "21:00",
       },
     ],
@@ -75,6 +75,12 @@ export const siteConfig = {
   /** Social handles. Empty string = link to platform home. */
   social: {
     instagram: env("NEXT_PUBLIC_INSTAGRAM", ""),
+    /**
+     * Behold (behol.so) feed ID for the Instagram grid in the Follow section.
+     * Empty = grid falls back to brand-gradient placeholders.
+     * Create a feed at behold.so → copy its Feed ID here / into env.
+     */
+    beholdFeedId: env("NEXT_PUBLIC_BEHOLD_FEED_ID", ""),
   },
 
   /** Legal — fed into Privacy + Terms + Accessibility pages. */
